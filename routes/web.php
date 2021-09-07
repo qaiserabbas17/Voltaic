@@ -42,14 +42,10 @@ Route::group(['prefix' => 'admin', 'middleware' => [ 'auth', 'verified' ] ], fun
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('Dashboard');
     Route::resource('users', App\Http\Controllers\Admin\UsersController::class);
-    Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
     Route::resource('role', App\Http\Controllers\Admin\RoleController::class);
     Route::resource('module', App\Http\Controllers\Admin\ModuleController::class);
-    Route::resource('tag', App\Http\Controllers\Admin\TagController::class);
-    Route::resource('product', App\Http\Controllers\Admin\ProductController::class);
-    Route::resource('faq', App\Http\Controllers\Admin\FaqController::class);
     Route::resource('generalsetting', App\Http\Controllers\Admin\GeneralSettingController::class);
-    Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
+    Route::get('testcalc', [App\Http\Controllers\Admin\GeneralSettingController::class, 'testcalc'])->name('testcalc');
 });
 
 

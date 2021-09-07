@@ -83,7 +83,7 @@
 						<div class="d-flex">
 							<a class="header-brand" href="{{ Route('Dashboard') }}">
 								@foreach(app('setting_data') as $row)
-								<img alt="logo" class="header-brand-img main-logo" src="{{ asset('assets/images') }}/{{ $row->logo }}">
+								<img alt="logo" class="header-brand-img main-logo" src="{{ asset('assets/images') }}/voltaoc.png">
 								@endforeach
 								<img alt="logo" class="header-brand-img mobile-logo" src="{{ asset('/assets/images/brand/icon.png') }}">
 							</a>
