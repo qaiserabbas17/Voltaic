@@ -143,8 +143,102 @@ class GeneralSettingController extends Controller
         $total_solar_generation = $energy_generation_by_system_kwh_jan + $energy_generation_by_system_kwh_feb + $energy_generation_by_system_kwh_mar + $energy_generation_by_system_kwh_apr + $energy_generation_by_system_kwh_may + $energy_generation_by_system_kwh_jun + $energy_generation_by_system_kwh_jul + $energy_generation_by_system_kwh_aug + $energy_generation_by_system_kwh_sep + $energy_generation_by_system_kwh_oct + $energy_generation_by_system_kwh_nov + $energy_generation_by_system_kwh_dec;
 
 
+        // Usage Distribution Month
 
-        return $total_solar_generation;
+        $usage_distribution_jan = $setting->usage_distribution_jan;
+        $usage_distribution_feb = $setting->usage_distribution_feb;
+        $usage_distribution_mar = $setting->usage_distribution_mar;
+        $usage_distribution_apr = $setting->usage_distribution_jan;
+        $usage_distribution_may = $setting->usage_distribution_may;
+        $usage_distribution_jun = $setting->usage_distribution_jun;
+        $usage_distribution_jul = $setting->usage_distribution_jul;
+        $usage_distribution_aug = $setting->usage_distribution_aug;
+        $usage_distribution_sep = $setting->usage_distribution_sep;
+        $usage_distribution_oct = $setting->usage_distribution_oct;
+        $usage_distribution_nov = $setting->usage_distribution_nov;
+        $usage_distribution_dec = $setting->usage_distribution_dec;
+        // Usage Distribution Month
+
+        // Energy Use
+        $energy_use_jan = $annual_energy_use * $usage_distribution_jan;
+        $energy_use_feb = $annual_energy_use * $usage_distribution_feb;
+        $energy_use_mar = $annual_energy_use * $usage_distribution_mar;
+        $energy_use_apr = $annual_energy_use * $usage_distribution_apr;
+        $energy_use_may = $annual_energy_use * $usage_distribution_may;
+        $energy_use_jun = $annual_energy_use * $usage_distribution_jun;
+        $energy_use_jul = $annual_energy_use * $usage_distribution_jul;
+        $energy_use_aug = $annual_energy_use * $usage_distribution_aug;
+        $energy_use_sep = $annual_energy_use * $usage_distribution_sep;
+        $energy_use_oct = $annual_energy_use * $usage_distribution_oct;
+        $energy_use_nov = $annual_energy_use * $usage_distribution_nov;
+        $energy_use_dec = $annual_energy_use * $usage_distribution_dec;
+        // Energy Use
+
+        // Daytime Use Months
+        $daytime_use_jan = $daytime_use/100 * $energy_use_jan;
+        $daytime_use_feb = $daytime_use/100 * $energy_use_feb;
+        $daytime_use_mar = $daytime_use/100 * $energy_use_mar;
+        $daytime_use_apr = $daytime_use/100 * $energy_use_apr;
+        $daytime_use_may = $daytime_use/100 * $energy_use_may;
+        $daytime_use_jun = $daytime_use/100 * $energy_use_jun;
+        $daytime_use_jul = $daytime_use/100 * $energy_use_jul;
+        $daytime_use_aug = $daytime_use/100 * $energy_use_aug;
+        $daytime_use_sep = $daytime_use/100 * $energy_use_sep;
+        $daytime_use_oct = $daytime_use/100 * $energy_use_oct;
+        $daytime_use_nov = $daytime_use/100 * $energy_use_nov;
+        $daytime_use_dec = $daytime_use/100 * $energy_use_dec;
+        // Daytime Use Months
+
+        // Nighttime Use Months
+        $nighttime_use_jan = $nighttime_use/100 * $energy_use_jan;
+        $nighttime_use_feb = $nighttime_use/100 * $energy_use_feb;
+        $nighttime_use_mar = $nighttime_use/100 * $energy_use_mar;
+        $nighttime_use_apr = $nighttime_use/100 * $energy_use_apr;
+        $nighttime_use_may = $nighttime_use/100 * $energy_use_may;
+        $nighttime_use_jun = $nighttime_use/100 * $energy_use_jun;
+        $nighttime_use_jul = $nighttime_use/100 * $energy_use_jul;
+        $nighttime_use_aug = $nighttime_use/100 * $energy_use_aug;
+        $nighttime_use_sep = $nighttime_use/100 * $energy_use_sep;
+        $nighttime_use_oct = $nighttime_use/100 * $energy_use_oct;
+        $nighttime_use_nov = $nighttime_use/100 * $energy_use_nov;
+        $nighttime_use_dec = $nighttime_use/100 * $energy_use_dec;
+        // Nighttime Use Months
+
+        // On-Peak Use Months
+        $on_peak_use_jan = $on_peak_use/100 * $energy_use_jan;
+        $on_peak_use_feb = $on_peak_use/100 * $energy_use_feb;
+        $on_peak_use_mar = $on_peak_use/100 * $energy_use_mar;
+        $on_peak_use_apr = $on_peak_use/100 * $energy_use_apr;
+        $on_peak_use_may = $on_peak_use/100 * $energy_use_may;
+        $on_peak_use_jun = $on_peak_use/100 * $energy_use_jun;
+        $on_peak_use_jul = $on_peak_use/100 * $energy_use_jul;
+        $on_peak_use_aug = $on_peak_use/100 * $energy_use_aug;
+        $on_peak_use_sep = $on_peak_use/100 * $energy_use_sep;
+        $on_peak_use_oct = $on_peak_use/100 * $energy_use_oct;
+        $on_peak_use_nov = $on_peak_use/100 * $energy_use_nov;
+        $on_peak_use_dec = $on_peak_use/100 * $energy_use_dec;
+        // On-Peak Use Months
+
+        // $self_use = $daytime_use_jan + $daytime_use_feb + $daytime_use_mar + $daytime_use_apr + $daytime_use_may + $daytime_use_jun + $daytime_use_jul + $daytime_use_aug + $daytime_use_sep + $daytime_use_oct + $daytime_use_nov + $daytime_use_dec;
+        
+        //Excess Generation 
+        $excess_generation_jan = $energy_generation_by_system_kwh_jan - $daytime_use_jan;
+        $excess_generation_feb = $energy_generation_by_system_kwh_feb - $daytime_use_feb;
+        $excess_generation_mar = $energy_generation_by_system_kwh_mar - $daytime_use_mar;
+        $excess_generation_apr = $energy_generation_by_system_kwh_apr - $daytime_use_apr;
+        $excess_generation_may = $energy_generation_by_system_kwh_may - $daytime_use_may;
+        $excess_generation_jun = $energy_generation_by_system_kwh_jun - $daytime_use_jun;
+        $excess_generation_jul = $energy_generation_by_system_kwh_jul - $daytime_use_jul;
+        $excess_generation_aug = $energy_generation_by_system_kwh_aug - $daytime_use_aug;
+        $excess_generation_sep = $energy_generation_by_system_kwh_sep - $daytime_use_sep;
+        $excess_generation_oct = $energy_generation_by_system_kwh_oct - $daytime_use_oct;
+        $excess_generation_nov = $energy_generation_by_system_kwh_nov - $daytime_use_nov;
+        $excess_generation_dec = $energy_generation_by_system_kwh_dec - $daytime_use_dec;
+        $excess_generation = ;
+        //Excess Generation 
+
+
+        return round($excess_generation_dec);
         //return round($annual_energy_use);
     }
 
