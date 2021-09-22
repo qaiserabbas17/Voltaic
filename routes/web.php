@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+    Route::get('calculator', [App\Http\Controllers\CalculatorController::class, 'index'])->name('calculator');
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');

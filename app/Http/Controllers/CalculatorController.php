@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,8 +8,17 @@ use App\Models\GeneralSetting;
 use File;
 use DB;
 
-class GeneralSettingController extends Controller
+class CalculatorController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    // public function index()
+    // {
+    //     //
+    // }
 
     public function setvalue($variable)
     {
@@ -18,35 +27,17 @@ class GeneralSettingController extends Controller
         }
         return $variable;
     }
-    public function testcalc()
+    public function index(Request $request)
     {
         $setting = GeneralSetting::first();
         $bill = 50000;
-        echo 'Bill (PKR) ' . $bill;
-        echo '<br/>';
         $on_peack_rate = $setting->on_peack_rate;
-        echo 'On-Peak Rate ' . $on_peack_rate;
-        echo '<br/>';
         $off_peack_rate = $setting->off_peack_rate;
-        echo 'Off-Peak Rate ' . $off_peack_rate;
-        echo '<br/>';
         $export_rate = $setting->export_rate;
-        echo 'Export rate ' . $export_rate;
-        echo '<br/>';
         $annual_rate_escalation = $setting->annual_rate_escalation;
-        echo 'Annual rate Escalation ' . $annual_rate_escalation;
-        echo '<br/>';
         $export_rate_escalation = $setting->export_rate_escalation;
-        echo 'Export Rate Escalation ' . $export_rate_escalation;
-        echo '<br/>';
         $daytime_use = $setting->daytime_use;
-        echo 'Daytime Use ' . $daytime_use;
-        echo '<br/>';
-
         $on_peak_use = $setting->on_peak_use;
-        echo 'On-Peak Use ' . $on_peak_use;
-        echo '<br/>';
-
         $nighttime_use = $daytime_use - $on_peak_use;
         echo 'Nighttime Use ' . $nighttime_use;
         echo '<br/>';
@@ -1823,33 +1814,6 @@ class GeneralSettingController extends Controller
         echo '<p style="width: 400px;float: left;margin: 0;">Net meter benefits (PKR)</p> '.' --- '. ceil($solar_battery_net_metered_benefits_one).' --- '. ceil($solar_battery_net_metered_benefits_two).' --- '. ceil($solar_battery_net_metered_benefits_three).' --- '. ceil($solar_battery_net_metered_benefits_four).' --- '. ceil($solar_battery_net_metered_benefits_five).' --- '. ceil($solar_battery_net_metered_benefits_six).' --- '. ceil($solar_battery_net_metered_benefits_seven).' --- '. ceil($solar_battery_net_metered_benefits_eight).' --- '. ceil($solar_battery_net_metered_benefits_nine).' --- '. ceil($solar_battery_net_metered_benefits_ten).'<br/>';
 
 
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-
-        
-
-
-
-        
 
        //  $Data = array(
        //              "1_Year" => $electricity_charges_without_solar
@@ -1868,110 +1832,69 @@ class GeneralSettingController extends Controller
         // return '$'.number_format($npv,2,'.',' ');
     }
 
-    public function index()
-    {
-    	$setting = GeneralSetting::first();
-    	return view('admin/generalsetting/index', compact('setting'));
-    }
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-    	return view('admin/generalsetting/index');
+        //
     }
 
-   public function store(Request $request)
-   {
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-      $generalsetting = new GeneralSetting([
-			'on_peack_rate' => $request->get('on_peack_rate'),
-            'off_peack_rate' => $request->get('off_peack_rate'),
-            'export_rate' => $request->get('export_rate'),
-            'annual_rate_escalation' => $request->get('annual_rate_escalation'),
-            'export_rate_escalation' => $request->get('export_rate_escalation'),
-            'daytime_use' => $request->get('daytime_use'),
-            'on_peak_use' => $request->get('on_peak_use'),
-            'panel_structure_cost_per_kw' => $request->get('panel_structure_cost_per_kw'),
-            'system_cost_per_kw' => $request->get('system_cost_per_kw'),
-            'battery_cost_per_kwh' => $request->get('battery_cost_per_kwh'),
-            'usd_to_pkr_exchange_rate' => $request->get('usd_to_pkr_exchange_rate'),
-            'usage_distribution_jan' => $request->get('usage_distribution_jan'),
-            'usage_distribution_feb' => $request->get('usage_distribution_feb'),
-            'usage_distribution_mar' => $request->get('usage_distribution_mar'),
-            'usage_distribution_apr' => $request->get('usage_distribution_apr'),
-            'usage_distribution_may' => $request->get('usage_distribution_may'),
-            'usage_distribution_jun' => $request->get('usage_distribution_jun'),
-            'usage_distribution_jul' => $request->get('usage_distribution_jul'),
-            'usage_distribution_aug' => $request->get('usage_distribution_aug'),
-            'usage_distribution_sep' => $request->get('usage_distribution_sep'),
-            'usage_distribution_oct' => $request->get('usage_distribution_oct'),
-            'usage_distribution_nov' => $request->get('usage_distribution_nov'),
-            'usage_distribution_dec' => $request->get('usage_distribution_dec'),
-            'solor_generation_per_kw_jan' => $request->get('solor_generation_per_kw_jan'),
-            'solor_generation_per_kw_feb' => $request->get('solor_generation_per_kw_feb'),
-            'solor_generation_per_kw_mar' => $request->get('solor_generation_per_kw_mar'),
-            'solor_generation_per_kw_apr' => $request->get('solor_generation_per_kw_apr'),
-            'solor_generation_per_kw_may' => $request->get('solor_generation_per_kw_may'),
-            'solor_generation_per_kw_jun' => $request->get('solor_generation_per_kw_jun'),
-            'solor_generation_per_kw_jul' => $request->get('solor_generation_per_kw_jul'),
-            'solor_generation_per_kw_aug' => $request->get('solor_generation_per_kw_aug'),
-            'solor_generation_per_kw_sep' => $request->get('solor_generation_per_kw_sep'),
-            'solor_generation_per_kw_oct' => $request->get('solor_generation_per_kw_oct'),
-            'solor_generation_per_kw_nov' => $request->get('solor_generation_per_kw_nov'),
-            'solor_generation_per_kw_dec' => $request->get('solor_generation_per_kw_dec')			
-		]);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-		$generalsetting->save();
-   	 return redirect('admin/generalsetting')->with('success', 'General Setting is Successfully created');
-   }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-   public function edit($id)
-   {
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
-	$setting = GeneralSetting::findOrFail($id);
-   	return redirect('admin/generalsetting', compact('setting'));
-   }
-
-   public function update(Request $request, $id)
-   {
-        $generalsetting = array(
-			'on_peack_rate' => $request->get('on_peack_rate'),
-            'off_peack_rate' => $request->get('off_peack_rate'),
-            'export_rate' => $request->get('export_rate'),
-            'annual_rate_escalation' => $request->get('annual_rate_escalation'),
-            'export_rate_escalation' => $request->get('export_rate_escalation'),
-            'daytime_use' => $request->get('daytime_use'),
-            'on_peak_use' => $request->get('on_peak_use'),
-            'panel_structure_cost_per_kw' => $request->get('panel_structure_cost_per_kw'),
-            'system_cost_per_kw' => $request->get('system_cost_per_kw'),
-            'battery_cost_per_kwh' => $request->get('battery_cost_per_kwh'),
-            'usd_to_pkr_exchange_rate' => $request->get('usd_to_pkr_exchange_rate'),
-            'usage_distribution_jan' => $request->get('usage_distribution_jan'),
-            'usage_distribution_feb' => $request->get('usage_distribution_feb'),
-            'usage_distribution_mar' => $request->get('usage_distribution_mar'),
-            'usage_distribution_apr' => $request->get('usage_distribution_apr'),
-            'usage_distribution_may' => $request->get('usage_distribution_may'),
-            'usage_distribution_jun' => $request->get('usage_distribution_jun'),
-            'usage_distribution_jul' => $request->get('usage_distribution_jul'),
-            'usage_distribution_aug' => $request->get('usage_distribution_aug'),
-            'usage_distribution_sep' => $request->get('usage_distribution_sep'),
-            'usage_distribution_oct' => $request->get('usage_distribution_oct'),
-            'usage_distribution_nov' => $request->get('usage_distribution_nov'),
-            'usage_distribution_dec' => $request->get('usage_distribution_dec'),
-            'solor_generation_per_kw_jan' => $request->get('solor_generation_per_kw_jan'),
-            'solor_generation_per_kw_feb' => $request->get('solor_generation_per_kw_feb'),
-            'solor_generation_per_kw_mar' => $request->get('solor_generation_per_kw_mar'),
-            'solor_generation_per_kw_apr' => $request->get('solor_generation_per_kw_apr'),
-            'solor_generation_per_kw_may' => $request->get('solor_generation_per_kw_may'),
-            'solor_generation_per_kw_jun' => $request->get('solor_generation_per_kw_jun'),
-            'solor_generation_per_kw_jul' => $request->get('solor_generation_per_kw_jul'),
-            'solor_generation_per_kw_aug' => $request->get('solor_generation_per_kw_aug'),
-            'solor_generation_per_kw_sep' => $request->get('solor_generation_per_kw_sep'),
-            'solor_generation_per_kw_oct' => $request->get('solor_generation_per_kw_oct'),
-            'solor_generation_per_kw_nov' => $request->get('solor_generation_per_kw_nov'),
-            'solor_generation_per_kw_dec' => $request->get('solor_generation_per_kw_dec')
-		);
-		  
-        GeneralSetting::whereId($id)->update($generalsetting);
-   	 return redirect('admin/generalsetting')->with('success', 'General Setting is Successfully Updated');
-   }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }
