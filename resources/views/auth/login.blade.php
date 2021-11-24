@@ -15,7 +15,7 @@
             <div class="col-lg-6 loginbg">
                 <div class="">
                     <div class="row"> 
-                        <a href="{{ url('/') }}"><img src="images/logo.svg" class="login-logo"> </a>
+                        <a href="{{ url('/') }}"><img src="assets/images/voltaoc.png" class="login-logo"> </a>
                     </div>
                     <div class="justify-content-center">
                      <img src="images/login-img.svg" class="login-image"> </div>
@@ -58,18 +58,18 @@
                                 <div class="mb-3"> 
                                     <button type="submit" class="btn-blue text-center">Login In</button> 
                                 </div>
-                                <div class=" mb-4 px-3 text-center"> 
-                                    <span class="font-weight-bold">New? 
-                                        <a href="{{ url('/register') }}">Create an account</a>
-                                    </span> 
-                                </div>
+                                <!--<div class=" mb-4 px-3 text-center"> -->
+                                <!--    <span class="font-weight-bold">New? -->
+                                <!--        <a href="{{ url('/register') }}">Create an account</a>-->
+                                <!--    </span> -->
+                                <!--</div>-->
                             </div>
 
                         </form>
                         <div class="py-3 text-center">
                             <p >Any question?</p>
                             <span class="font-weight-bold">Please contact us at? 
-                                <a href="mailto:care@lyfe.co.uk">Care@lyfe.co.uk</a>
+                                <a href="mailto:contact@voltaicpower.net">contact@voltaicpower.net</a>
                             </span> 
                         </div>
                     </span>

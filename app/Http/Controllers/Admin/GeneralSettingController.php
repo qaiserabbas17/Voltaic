@@ -21,7 +21,7 @@ class GeneralSettingController extends Controller
     public function testcalc()
     {
         $setting = GeneralSetting::first();
-        $bill = 50000;
+        $bill = 100000;
         echo 'Bill (PKR) ' . $bill;
         echo '<br/>';
         $on_peack_rate = $setting->on_peack_rate;
@@ -87,9 +87,7 @@ class GeneralSettingController extends Controller
         echo 'Maximum On-Peak Monthly Use (KWh) '. ceil($maximum_on_peak_monthly_energy_used);
         echo '<br/>';
 
-        $average_on_peak_daily_use_summer = '8';
-        echo 'Average On-Peak Daily Use (Summer) '. ceil($average_on_peak_daily_use_summer);
-        echo '<br/>';
+        
         $annual_energy_use = $maximum_monthly_energy_used * 6.3;
         echo 'Annual Energy Use '. ceil($annual_energy_use);
         echo '<br/>';
@@ -99,32 +97,17 @@ class GeneralSettingController extends Controller
         echo 'Recommended Solar System Size (KW) '. ceil($recommended_solar_system_size_kw);
         echo '<br/>';
 
-        $recommended_battery_size_kwh = 9.60;
-        echo 'Recommended Battery Size (KWh) '. $recommended_battery_size_kwh;
-        echo '<br/>';
-        $selected_system_size = 12.0;
-        echo 'Selected System Size '. ceil($selected_system_size);
-        echo '<br/>';
-        $selected_battery_size = $recommended_battery_size_kwh;
-        echo 'Solar Size with Battery '. $selected_battery_size;
-        echo '<br/>';
+        // $recommended_battery_size_kwh = 9.60;
+        // echo 'Recommended Battery Size (KWh) '. $recommended_battery_size_kwh;
+        // echo '<br/>';
 
-        $selected_solar_for_battery = $selected_system_size + 0.67 * $selected_battery_size / 3.2;
-        echo 'Selected Solar for Battery '. ceil($selected_solar_for_battery);
-        echo '<br/>';
-        $solar_size_with_battery = $selected_solar_for_battery;
-        echo 'Selected Battery Size '. ceil($solar_size_with_battery);
-        echo '<br/>';
+        // $recommended_battery_size_kwh = max(9.60,(round($average_on_peak_daily_use_summer/3.2,0,PHP_ROUND_HALF_DOWN)*3.2));
+        // echo 'Recommended Battery Size (KWh) '. $recommended_battery_size_kwh;
+        // echo '<br/>';
 
-        $solor_system_cost = $selected_system_size * $system_cost_per_kw;
-        echo 'Solar System Cost '. ceil($solor_system_cost);
-        echo '<br/>';
-        $battery_cost = $selected_battery_size * $battery_cost_per_kwh;
-        echo 'Battery Cost '. ceil($battery_cost);
-        echo '<br/>';
-        $cost_of_additional_panels_for_battery_charging = ($selected_solar_for_battery - $selected_system_size) * $panel_structure_cost_per_kw;
-        echo 'Cost of Additional Panels for Battery Charging '. ceil($cost_of_additional_panels_for_battery_charging);
-        echo '<br/>';
+        
+
+        
 
         // Solar Generation per KW
 
@@ -157,132 +140,7 @@ class GeneralSettingController extends Controller
         // Solar Generation per KW
 
 
-        // Energy Generation by System (KWh)
-        echo 'Energy Generation by System (KWh)';
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_jan = $this->setvalue($selected_system_size * $solor_generation_per_kw_jan);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_feb = $this->setvalue($selected_system_size * $solor_generation_per_kw_feb);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_mar = $this->setvalue($selected_system_size * $solor_generation_per_kw_mar);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_apr = $this->setvalue($selected_system_size * $solor_generation_per_kw_apr);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_may = $this->setvalue($selected_system_size * $solor_generation_per_kw_may);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_jun = $this->setvalue($selected_system_size * $solor_generation_per_kw_jun);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_jul = $this->setvalue($selected_system_size * $solor_generation_per_kw_jul);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_aug = $this->setvalue($selected_system_size * $solor_generation_per_kw_aug);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_sep = $this->setvalue($selected_system_size * $solor_generation_per_kw_sep);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_oct = $this->setvalue($selected_system_size * $solor_generation_per_kw_oct);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_nov = $this->setvalue($selected_system_size * $solor_generation_per_kw_nov);
-        echo '<br>';
-        echo $energy_generation_by_system_kwh_dec = $this->setvalue($selected_system_size * $solor_generation_per_kw_dec);
-        echo '<br>';
-        echo '<br>';
-        // Energy Generation by System (KWh)  
-
-
-        // Generation for Solar+Battery (KWh)
-
-        echo 'Generation for Solar+Battery (KWh)';
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_jan = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_jan);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_feb = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_feb);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_mar = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_mar);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_apr = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_apr);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_may = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_may);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_jun = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_jun);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_jul = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_jul);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_aug = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_aug);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_sep = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_sep);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_oct = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_oct);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_nov = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_nov);
-        echo '<br>';
-        echo $generation_for_solr_plus_battery_dec = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_dec);
-        echo '<br>';
-        echo '<br>';
-        // Generation for Solar+Battery (KWh)
-
-
-        // Total Battery Charge Available (KWh)
-        echo 'Total Battery Charge Available (KWh)';
-        echo '<br>';
-        echo $total_battery_charge_available_jan = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_feb = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_mar = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_apr = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_may = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_jun = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_jul = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_aug = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_sep = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_oct = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_nov = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $total_battery_charge_available_dec = $this->setvalue(0.9 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo '<br>';
-        // Total Battery Charge Available (KWh)
-
-        // Peak Battery Charge Available (KWh)
-        echo 'Peak Battery Charge Available (KWh)';
-        echo '<br>';
-        echo $peak_battery_charge_available_jan = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_feb = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_mar = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_apr = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_may = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_jun = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_jul = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_aug = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_sep = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_oct = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_nov = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo $peak_battery_charge_available_dec = $this->setvalue(0.8 * ($selected_battery_size * 30));
-        echo '<br>';
-        echo '<br/>';
-        // Peak Battery Charge Available (KWh)
-
-
-        // Solar Only
-        $total_solar_generation = $this->setvalue($energy_generation_by_system_kwh_jan) + $this->setvalue($energy_generation_by_system_kwh_feb) + $this->setvalue($energy_generation_by_system_kwh_mar) + $this->setvalue($energy_generation_by_system_kwh_apr) + $this->setvalue($energy_generation_by_system_kwh_may) + $this->setvalue($energy_generation_by_system_kwh_jun) + $this->setvalue($energy_generation_by_system_kwh_jul) + $this->setvalue($energy_generation_by_system_kwh_aug) + $this->setvalue($energy_generation_by_system_kwh_sep) + $this->setvalue($energy_generation_by_system_kwh_oct) + $this->setvalue($energy_generation_by_system_kwh_nov) + $this->setvalue($energy_generation_by_system_kwh_dec);
+        
 
 
         // Usage Distribution Month
@@ -437,6 +295,166 @@ class GeneralSettingController extends Controller
         echo '<br>';
         echo '<br/>';
         // On-Peak Use Months
+
+        $average_on_peak_daily_use_summer = (($on_peak_use_jan + $on_peak_use_feb + $on_peak_use_mar + $on_peak_use_apr + $on_peak_use_may + $on_peak_use_jun + $on_peak_use_jul + $on_peak_use_aug + $on_peak_use_sep + $on_peak_use_oct) / 10)/30;
+        echo 'Average On-Peak Daily Use (Summer) '. ceil($average_on_peak_daily_use_summer);
+        echo '<br/>';
+
+        $recommended_battery_size_kwh = max(9.60,(round($average_on_peak_daily_use_summer/3.2,0,PHP_ROUND_HALF_DOWN)*3.2));
+        echo 'Recommended Battery Size (KWh) '. $recommended_battery_size_kwh;
+        echo '<br/>';
+
+        $selected_system_size = 12.0;
+        echo 'Selected System Size '. $selected_system_size;
+        echo '<br/>';
+        $selected_battery_size = $recommended_battery_size_kwh;
+        echo 'Solar Size with Battery '. $selected_battery_size;
+        echo '<br/>';
+
+        $selected_solar_for_battery = $selected_system_size + 0.67 * $selected_battery_size / 3.2;
+        echo 'Selected Solar for Battery '. $selected_solar_for_battery;
+        echo '<br/>';
+        $solar_size_with_battery = $selected_solar_for_battery;
+        echo 'Selected Battery Size '. ceil($solar_size_with_battery);
+        echo '<br/>';
+
+        $solor_system_cost = $selected_system_size * $system_cost_per_kw;
+        echo 'Solar System Cost '. ceil($solor_system_cost);
+        echo '<br/>';
+        $battery_cost = $selected_battery_size * $battery_cost_per_kwh;
+        echo 'Battery Cost '. ceil($battery_cost);
+        echo '<br/>';
+        $cost_of_additional_panels_for_battery_charging = ($selected_solar_for_battery - $selected_system_size) * $panel_structure_cost_per_kw;
+        echo 'Cost of Additional Panels for Battery Charging '. ceil($cost_of_additional_panels_for_battery_charging);
+        echo '<br/>';
+
+        // Energy Generation by System (KWh)
+        echo 'Energy Generation by System (KWh)';
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_jan = $this->setvalue($selected_system_size * $solor_generation_per_kw_jan);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_feb = $this->setvalue($selected_system_size * $solor_generation_per_kw_feb);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_mar = $this->setvalue($selected_system_size * $solor_generation_per_kw_mar);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_apr = $this->setvalue($selected_system_size * $solor_generation_per_kw_apr);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_may = $this->setvalue($selected_system_size * $solor_generation_per_kw_may);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_jun = $this->setvalue($selected_system_size * $solor_generation_per_kw_jun);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_jul = $this->setvalue($selected_system_size * $solor_generation_per_kw_jul);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_aug = $this->setvalue($selected_system_size * $solor_generation_per_kw_aug);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_sep = $this->setvalue($selected_system_size * $solor_generation_per_kw_sep);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_oct = $this->setvalue($selected_system_size * $solor_generation_per_kw_oct);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_nov = $this->setvalue($selected_system_size * $solor_generation_per_kw_nov);
+        echo '<br>';
+        echo $energy_generation_by_system_kwh_dec = $this->setvalue($selected_system_size * $solor_generation_per_kw_dec);
+        echo '<br>';
+        echo '<br>';
+        // Energy Generation by System (KWh)  
+
+
+        // Generation for Solar+Battery (KWh)
+
+        echo 'Generation for Solar+Battery (KWh)';
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_jan = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_jan);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_feb = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_feb);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_mar = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_mar);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_apr = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_apr);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_may = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_may);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_jun = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_jun);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_jul = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_jul);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_aug = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_aug);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_sep = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_sep);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_oct = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_oct);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_nov = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_nov);
+        echo '<br>';
+        echo $generation_for_solr_plus_battery_dec = $this->setvalue($selected_solar_for_battery * $solor_generation_per_kw_dec);
+        echo '<br>';
+        echo '<br>';
+        // Generation for Solar+Battery (KWh)
+
+
+        // Total Battery Charge Available (KWh)
+        echo 'Total Battery Charge Available (KWh)';
+        echo '<br>';
+        echo $total_battery_charge_available_jan = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_feb = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_mar = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_apr = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_may = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_jun = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_jul = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_aug = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_sep = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_oct = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_nov = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $total_battery_charge_available_dec = $this->setvalue(0.9 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo '<br>';
+        $total_battery_charge_available_sum = $total_battery_charge_available_jan + $total_battery_charge_available_feb + $total_battery_charge_available_mar + $total_battery_charge_available_apr + $total_battery_charge_available_may + $total_battery_charge_available_jun + $total_battery_charge_available_jul + $total_battery_charge_available_aug + $total_battery_charge_available_sep + $total_battery_charge_available_oct + $total_battery_charge_available_nov + $total_battery_charge_available_dec;
+        // Total Battery Charge Available (KWh)
+
+        // Peak Battery Charge Available (KWh)
+        echo 'Peak Battery Charge Available (KWh)';
+        echo '<br>';
+        echo $peak_battery_charge_available_jan = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_feb = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_mar = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_apr = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_may = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_jun = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_jul = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_aug = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_sep = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_oct = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_nov = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo $peak_battery_charge_available_dec = $this->setvalue(0.8 * ($selected_battery_size * 30));
+        echo '<br>';
+        echo '<br/>';
+        // Peak Battery Charge Available (KWh)
+
+
+        // Solar Only
+        $total_solar_generation = $this->setvalue($energy_generation_by_system_kwh_jan) + $this->setvalue($energy_generation_by_system_kwh_feb) + $this->setvalue($energy_generation_by_system_kwh_mar) + $this->setvalue($energy_generation_by_system_kwh_apr) + $this->setvalue($energy_generation_by_system_kwh_may) + $this->setvalue($energy_generation_by_system_kwh_jun) + $this->setvalue($energy_generation_by_system_kwh_jul) + $this->setvalue($energy_generation_by_system_kwh_aug) + $this->setvalue($energy_generation_by_system_kwh_sep) + $this->setvalue($energy_generation_by_system_kwh_oct) + $this->setvalue($energy_generation_by_system_kwh_nov) + $this->setvalue($energy_generation_by_system_kwh_dec);
 
         // Self Use
 
@@ -961,7 +979,7 @@ class GeneralSettingController extends Controller
         $on_peak_imports_plus_tax_PKR_twenty_three = ceil($on_peak_imports_1st_year_charges) * pow(1.12,($year23-1));
         $on_peak_imports_plus_tax_PKR_twenty_four = ceil($on_peak_imports_1st_year_charges) * pow(1.12,($year24-1));
         $on_peak_imports_plus_tax_PKR_twenty_five = ceil($on_peak_imports_1st_year_charges) * pow(1.12,($year25-1));
-        //die($on_peak_imports_plus_tax_PKR_twenty_five);
+        //die($on_peak_imports_plus_tax_8PKR_twenty_five);
 
         //Annual Credit (+) or Payment (-)
         $annual_credit_plus_or_payment_minus_one = ($income_from_exports_PKR_one+$net_metered_benefits_one) - ($off_peak_imports_plus_tax_PKR_one+$on_peak_imports_plus_tax_PKR_one); 
@@ -1048,6 +1066,81 @@ class GeneralSettingController extends Controller
         $zero_energy_charge_ten = 0;
         if($annual_credit_plus_or_payment_minus_ten > 1){
             $zero_energy_charge_ten = 1;
+        }
+
+        $zero_energy_charge_eleven = 0;
+        if($annual_credit_plus_or_payment_minus_eleven > 1){
+            $zero_energy_charge_eleven = 1;
+        }
+
+        $zero_energy_charge_twelve = 0;
+        if($annual_credit_plus_or_payment_minus_twelve > 1){
+            $zero_energy_charge_twelve = 1;
+        }
+
+        $zero_energy_charge_thirteen = 0;
+        if($annual_credit_plus_or_payment_minus_thirteen > 1){
+            $zero_energy_charge_thirteen = 1;
+        }
+
+        $zero_energy_charge_fourteen = 0;
+        if($annual_credit_plus_or_payment_minus_fourteen > 1){
+            $zero_energy_charge_fourteen = 1;
+        }
+        
+        $zero_energy_charge_fifteen = 0;
+        if($annual_credit_plus_or_payment_minus_fifteen > 1){
+            $zero_energy_charge_fifteen = 1;
+        }
+
+        $zero_energy_charge_sixteen = 0;
+        if($annual_credit_plus_or_payment_minus_sixteen > 1){
+            $zero_energy_charge_sixteen = 1;
+        }
+
+        $zero_energy_charge_seventeen = 0;
+        if($annual_credit_plus_or_payment_minus_seventeen > 1){
+            $zero_energy_charge_seventeen = 1;
+        }
+
+        $zero_energy_charge_eighteen = 0;
+        if($annual_credit_plus_or_payment_minus_eighteen > 1){
+            $zero_energy_charge_eighteen = 1;
+        }
+
+        $zero_energy_charge_nineteen = 0;
+        if($annual_credit_plus_or_payment_minus_nineteen > 1){
+            $zero_energy_charge_nineteen = 1;
+        }
+
+        $zero_energy_charge_twenty = 0;
+        if($annual_credit_plus_or_payment_minus_twenty > 1){
+            $zero_energy_charge_twenty = 1;
+        }
+
+        $zero_energy_charge_twenty_one = 0;
+        if($annual_credit_plus_or_payment_minus_twenty_one > 1){
+            $zero_energy_charge_twenty_one = 1;
+        }
+
+        $zero_energy_charge_twenty_two = 0;
+        if($annual_credit_plus_or_payment_minus_twenty_two > 1){
+            $zero_energy_charge_twenty_two = 1;
+        }
+
+        $zero_energy_charge_twenty_three = 0;
+        if($annual_credit_plus_or_payment_minus_twenty_three > 1){
+            $zero_energy_charge_twenty_three = 1;
+        }
+
+        $zero_energy_charge_twenty_four = 0;
+        if($annual_credit_plus_or_payment_minus_twenty_four > 1){
+            $zero_energy_charge_twenty_four = 1;
+        }
+
+        $zero_energy_charge_twenty_five = 0;
+        if($annual_credit_plus_or_payment_minus_twenty_five > 1){
+            $zero_energy_charge_twenty_five = 1;
         }
 
 
@@ -1193,7 +1286,403 @@ class GeneralSettingController extends Controller
         //die($cumulative_payback_cash_flow_PKR_one);
 
         // Simple Payback Period
-        // =IF(C74<=0,1,IF(B74>0,0,IF(-B74/C72>0,-B74/C72,0)))
+         // =IF(C74<=0,1,IF(B74>0,0,IF(-B74/C72>0,-B74/C72,0)))
+        // echo $cumulative_payback_cash_flow_PKR_one;die;
+
+        // Simple Payback Period One
+        if ($cumulative_payback_cash_flow_PKR_one <= 0) {
+            $simple_payback_period_one = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_usage > 0){
+            $simple_payback_period_one = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_usage/$total_savings_in_electricity_charges_one) > 0){
+            $simple_payback_period_one = (-$cumulative_payback_cash_flow_PKR_usage/$total_savings_in_electricity_charges_one);
+        }
+        else{
+            $simple_payback_period_one = 0;
+        }
+
+        // Simple Payback Period two
+        if ($cumulative_payback_cash_flow_PKR_two <= 0) {
+            $simple_payback_period_two = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_one > 0){
+            $simple_payback_period_two = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_one/$total_savings_in_electricity_charges_two) > 0){
+            $simple_payback_period_two = (-$cumulative_payback_cash_flow_PKR_one/$total_savings_in_electricity_charges_two);
+        }
+        else{
+            $simple_payback_period_two = 0;
+        }
+
+
+        // Simple Payback Period three
+        if ($cumulative_payback_cash_flow_PKR_three <= 0) {
+            $simple_payback_period_three = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_two > 0){
+            $simple_payback_period_three = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_two/$total_savings_in_electricity_charges_three) > 0){
+            $simple_payback_period_three = (-$cumulative_payback_cash_flow_PKR_two/$total_savings_in_electricity_charges_three);
+        }
+        else{
+            $simple_payback_period_three = 0;
+        }
+
+
+        // Simple Payback Period four
+        if ($cumulative_payback_cash_flow_PKR_four <= 0) {
+            $simple_payback_period_four = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_three > 0){
+            $simple_payback_period_four = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_three/$total_savings_in_electricity_charges_four) > 0){
+            $simple_payback_period_four = (-$cumulative_payback_cash_flow_PKR_three/$total_savings_in_electricity_charges_four);
+        }
+        else{
+            $simple_payback_period_four = 0;
+        }
+
+
+        // Simple Payback Period five
+        if ($cumulative_payback_cash_flow_PKR_five <= 0) {
+            $simple_payback_period_five = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_four > 0){
+            $simple_payback_period_five = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_four/$total_savings_in_electricity_charges_five) > 0){
+            $simple_payback_period_five = (-$cumulative_payback_cash_flow_PKR_four/$total_savings_in_electricity_charges_five);
+        }
+        else{
+            $simple_payback_period_five = 0;
+        }
+
+
+        // Simple Payback Period six
+        if ($cumulative_payback_cash_flow_PKR_six <= 0) {
+            $simple_payback_period_six = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_five > 0){
+            $simple_payback_period_six = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_five/$total_savings_in_electricity_charges_six) > 0){
+            $simple_payback_period_six = (-$cumulative_payback_cash_flow_PKR_five/$total_savings_in_electricity_charges_six);
+        }
+        else{
+            $simple_payback_period_six = 0;
+        }
+
+        // Simple Payback Period seven
+        if ($cumulative_payback_cash_flow_PKR_seven <= 0) {
+            $simple_payback_period_seven = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_six > 0){
+            $simple_payback_period_seven = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_six/$total_savings_in_electricity_charges_seven) > 0){
+            $simple_payback_period_seven = (-$cumulative_payback_cash_flow_PKR_six/$total_savings_in_electricity_charges_seven);
+        }
+        else{
+            $simple_payback_period_seven = 0;
+        }
+
+
+        // Simple Payback Period eight
+        if ($cumulative_payback_cash_flow_PKR_eight <= 0) {
+            $simple_payback_period_eight = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_seven > 0){
+            $simple_payback_period_eight = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_seven/$total_savings_in_electricity_charges_eight) > 0){
+            $simple_payback_period_eight = (-$cumulative_payback_cash_flow_PKR_seven/$total_savings_in_electricity_charges_eight);
+        }
+        else{
+            $simple_payback_period_eight = 0;
+        }
+
+        // Simple Payback Period nine
+        if ($cumulative_payback_cash_flow_PKR_nine <= 0) {
+            $simple_payback_period_nine = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_eight > 0){
+            $simple_payback_period_nine = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_eight/$total_savings_in_electricity_charges_nine) > 0){
+            $simple_payback_period_nine = (-$cumulative_payback_cash_flow_PKR_eight/$total_savings_in_electricity_charges_nine);
+        }
+        else{
+            $simple_payback_period_nine = 0;
+        }
+
+        // Simple Payback Period ten
+        if ($cumulative_payback_cash_flow_PKR_ten <= 0) {
+            $simple_payback_period_ten = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_nine > 0){
+            $simple_payback_period_ten = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_nine/$total_savings_in_electricity_charges_ten) > 0){
+            $simple_payback_period_ten = (-$cumulative_payback_cash_flow_PKR_nine/$total_savings_in_electricity_charges_ten);
+        }
+        else{
+            $simple_payback_period_ten = 0;
+        }
+
+        // Simple Payback Period eleven
+        if ($cumulative_payback_cash_flow_PKR_eleven <= 0) {
+            $simple_payback_period_eleven = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_ten > 0){
+            $simple_payback_period_eleven = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_ten/$total_savings_in_electricity_charges_eleven) > 0){
+            $simple_payback_period_eleven = (-$cumulative_payback_cash_flow_PKR_ten/$total_savings_in_electricity_charges_eleven);
+        }
+        else{
+            $simple_payback_period_eleven = 0;
+        }
+
+        // Simple Payback Period twelve
+        if ($cumulative_payback_cash_flow_PKR_twelve <= 0) {
+            $simple_payback_period_twelve = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_eleven > 0){
+            $simple_payback_period_twelve = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_eleven/$total_savings_in_electricity_charges_twelve) > 0){
+            $simple_payback_period_twelve = (-$cumulative_payback_cash_flow_PKR_eleven/$total_savings_in_electricity_charges_twelve);
+        }
+        else{
+            $simple_payback_period_twelve = 0;
+        }
+
+
+
+        // Simple Payback Period thirteen
+        if ($cumulative_payback_cash_flow_PKR_thirteen <= 0) {
+            $simple_payback_period_thirteen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_twelve > 0){
+            $simple_payback_period_thirteen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_twelve/$total_savings_in_electricity_charges_thirteen) > 0){
+            $simple_payback_period_thirteen = (-$cumulative_payback_cash_flow_PKR_twelve/$total_savings_in_electricity_charges_thirteen);
+        }
+        else{
+            $simple_payback_period_thirteen = 0;
+        }
+
+
+        // Simple Payback Period fourteen
+        if ($cumulative_payback_cash_flow_PKR_fourteen <= 0) {
+            $simple_payback_period_fourteen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_thirteen > 0){
+            $simple_payback_period_fourteen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_thirteen/$total_savings_in_electricity_charges_fourteen) > 0){
+            $simple_payback_period_fourteen = (-$cumulative_payback_cash_flow_PKR_thirteen/$total_savings_in_electricity_charges_fourteen);
+        }
+        else{
+            $simple_payback_period_fourteen = 0;
+        }
+
+
+        // Simple Payback Period fifteen
+        if ($cumulative_payback_cash_flow_PKR_fifteen <= 0) {
+            $simple_payback_period_fifteen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_fourteen > 0){
+            $simple_payback_period_fifteen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_fourteen/$total_savings_in_electricity_charges_fifteen) > 0){
+            $simple_payback_period_fifteen = (-$cumulative_payback_cash_flow_PKR_fourteen/$total_savings_in_electricity_charges_fifteen);
+        }
+        else{
+            $simple_payback_period_fifteen = 0;
+        }
+
+
+        // Simple Payback Period sixteen
+        if ($cumulative_payback_cash_flow_PKR_sixteen <= 0) {
+            $simple_payback_period_sixteen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_fifteen > 0){
+            $simple_payback_period_sixteen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_fifteen/$total_savings_in_electricity_charges_sixteen) > 0){
+            $simple_payback_period_sixteen = (-$cumulative_payback_cash_flow_PKR_fifteen/$total_savings_in_electricity_charges_sixteen);
+        }
+        else{
+            $simple_payback_period_sixteen = 0;
+        }
+
+
+        // Simple Payback Period seventeen
+        if ($cumulative_payback_cash_flow_PKR_seventeen <= 0) {
+            $simple_payback_period_seventeen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_sixteen > 0){
+            $simple_payback_period_seventeen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_sixteen/$total_savings_in_electricity_charges_seventeen) > 0){
+            $simple_payback_period_seventeen = (-$cumulative_payback_cash_flow_PKR_sixteen/$total_savings_in_electricity_charges_seventeen);
+        }
+        else{
+            $simple_payback_period_seventeen = 0;
+        }
+
+
+        // Simple Payback Period eighteen
+        if ($cumulative_payback_cash_flow_PKR_eighteen <= 0) {
+            $simple_payback_period_eighteen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_seventeen > 0){
+            $simple_payback_period_eighteen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_seventeen/$total_savings_in_electricity_charges_eighteen) > 0){
+            $simple_payback_period_eighteen = (-$cumulative_payback_cash_flow_PKR_seventeen/$total_savings_in_electricity_charges_eighteen);
+        }
+        else{
+            $simple_payback_period_eighteen = 0;
+        }
+
+        // Simple Payback Period nineteen
+        if ($cumulative_payback_cash_flow_PKR_nineteen <= 0) {
+            $simple_payback_period_nineteen = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_eighteen > 0){
+            $simple_payback_period_nineteen = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_eighteen/$total_savings_in_electricity_charges_nineteen) > 0){
+            $simple_payback_period_nineteen = (-$cumulative_payback_cash_flow_PKR_eighteen/$total_savings_in_electricity_charges_nineteen);
+        }
+        else{
+            $simple_payback_period_nineteen = 0;
+        }
+
+        // Simple Payback Period twenty
+        if ($cumulative_payback_cash_flow_PKR_twenty <= 0) {
+            $simple_payback_period_twenty = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_nineteen > 0){
+            $simple_payback_period_twenty = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_nineteen/$total_savings_in_electricity_charges_twenty) > 0){
+            $simple_payback_period_twenty = (-$cumulative_payback_cash_flow_PKR_nineteen/$total_savings_in_electricity_charges_twenty);
+        }
+        else{
+            $simple_payback_period_twenty = 0;
+        }
+
+        // Simple Payback Period twenty_one
+        if ($cumulative_payback_cash_flow_PKR_twenty_one <= 0) {
+            $simple_payback_period_twenty_one = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_twenty > 0){
+            $simple_payback_period_twenty_one = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_twenty/$total_savings_in_electricity_charges_twenty_one) > 0){
+            $simple_payback_period_twenty_one = (-$cumulative_payback_cash_flow_PKR_twenty/$total_savings_in_electricity_charges_twenty_one);
+        }
+        else{
+            $simple_payback_period_twenty_one = 0;
+        }
+
+        // Simple Payback Period twenty_two
+        if ($cumulative_payback_cash_flow_PKR_twenty_two <= 0) {
+            $simple_payback_period_twenty_two = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_twenty_one > 0){
+            $simple_payback_period_twenty_two = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_twenty_one/$total_savings_in_electricity_charges_twenty_two) > 0){
+            $simple_payback_period_twenty_two = (-$cumulative_payback_cash_flow_PKR_twenty_one/$total_savings_in_electricity_charges_twenty_two);
+        }
+        else{
+            $simple_payback_period_twenty_two = 0;
+        }
+
+
+        // Simple Payback Period twenty_three
+        if ($cumulative_payback_cash_flow_PKR_twenty_three <= 0) {
+            $simple_payback_period_twenty_three = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_twenty_two > 0){
+            $simple_payback_period_twenty_three = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_twenty_two/$total_savings_in_electricity_charges_twenty_three) > 0){
+            $simple_payback_period_twenty_three = (-$cumulative_payback_cash_flow_PKR_twenty_two/$total_savings_in_electricity_charges_twenty_three);
+        }
+        else{
+            $simple_payback_period_twenty_three = 0;
+        }
+
+
+        // Simple Payback Period twenty_four
+        if ($cumulative_payback_cash_flow_PKR_twenty_four <= 0) {
+            $simple_payback_period_twenty_four = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_twenty_three > 0){
+            $simple_payback_period_twenty_four = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_twenty_three/$total_savings_in_electricity_charges_twenty_four) > 0){
+            $simple_payback_period_twenty_four = (-$cumulative_payback_cash_flow_PKR_twenty_three/$total_savings_in_electricity_charges_twenty_four);
+        }
+        else{
+            $simple_payback_period_twenty_four = 0;
+        }
+
+        // Simple Payback Period twenty_five
+        if ($cumulative_payback_cash_flow_PKR_twenty_five <= 0) {
+            $simple_payback_period_twenty_five = 1;
+        }
+        elseif($cumulative_payback_cash_flow_PKR_twenty_four > 0){
+            $simple_payback_period_twenty_five = 0;
+        }
+        elseif((-$cumulative_payback_cash_flow_PKR_twenty_four/$total_savings_in_electricity_charges_twenty_five) > 0){
+            $simple_payback_period_twenty_five = (-$cumulative_payback_cash_flow_PKR_twenty_four/$total_savings_in_electricity_charges_twenty_five);
+        }
+        else{
+            $simple_payback_period_twenty_five = 0;
+        }
+
+
+        $D23 = $simple_payback_period_one + $simple_payback_period_two + $simple_payback_period_three + $simple_payback_period_four + $simple_payback_period_five + $simple_payback_period_six + $simple_payback_period_seven + $simple_payback_period_eight + $simple_payback_period_nine + $simple_payback_period_ten + $simple_payback_period_eleven + $simple_payback_period_twelve + $simple_payback_period_thirteen + $simple_payback_period_fourteen + $simple_payback_period_fifteen + $simple_payback_period_sixteen + $simple_payback_period_seventeen + $simple_payback_period_eighteen + $simple_payback_period_nineteen + $simple_payback_period_twenty + $simple_payback_period_twenty_one + $simple_payback_period_twenty_two + $simple_payback_period_twenty_three + $simple_payback_period_twenty_four + $simple_payback_period_twenty_five;
+        //echo (float)number_format($D23, 2, '.', '');
+
+
+
+
+        // echo $simple_payback_period_one.'<br>';
+        // echo $simple_payback_period_two.'<br>';
+        // echo $simple_payback_period_three.'<br>';
+        // echo (float)number_format($simple_payback_period_four, 2, '.', '');
+        // echo $simple_payback_period_five.'<br>';
+        // echo $simple_payback_period_six.'<br>';
+        // echo $simple_payback_period_seven.'<br>';
+        // echo $simple_payback_period_eight.'<br>';
+        // echo $simple_payback_period_nine.'<br>';
+        // echo $simple_payback_period_ten.'<br>';
+        // echo $simple_payback_period_eleven.'<br>';
+        // echo $simple_payback_period_twelve.'<br>';
+        // echo $simple_payback_period_thirteen.'<br>';
+        // echo $simple_payback_period_fourteen.'<br>';
+        // echo $simple_payback_period_fifteen.'<br>';
+        // echo $simple_payback_period_sixteen.'<br>';
+        // echo $simple_payback_period_seventeen.'<br>';
+        // echo $simple_payback_period_eighteen.'<br>';
+
+        // die;
+
+
+
 
 
         // Discount Rate
@@ -1683,6 +2172,1504 @@ class GeneralSettingController extends Controller
         $solar_battery_net_metered_benefits_twenty_four = ceil($solar_battery_net_metered_benefits_one) * pow(1.12,($year24-1));
         $solar_battery_net_metered_benefits_twenty_five = ceil($solar_battery_net_metered_benefits_one) * pow(1.12,($year25-1));
 
+        // Off-Peak Imports + Tax(PKR) //
+
+                $solar_battery_off_peak_imports_plus_tax_PKR_one = $solar_battery_off_peak_nighttime_import_charges;
+        $solar_battery_off_peak_imports_plus_tax_PKR_two = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year2-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_three = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year3-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_four = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year4-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_five = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year5-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_six = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year6-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_seven = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year7-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_eight = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year8-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_nine = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year9-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_ten = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year10-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_eleven = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year11-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twelve = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year12-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_thirteen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year13-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_fourteen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year14-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_fifteen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year15-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_sixteen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year16-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_seventeen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year17-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_eighteen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year18-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_nineteen = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year19-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twenty = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year20-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twenty_one = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year21-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twenty_two = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year22-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twenty_three = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year23-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twenty_four = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year24-1));
+        $solar_battery_off_peak_imports_plus_tax_PKR_twenty_five = ceil($solar_battery_off_peak_imports_plus_tax_PKR_one) * pow(1.12,($year25-1));
+
+        // On-Peak Imports + Tax (PKR) //
+
+                $solar_battery_on_peak_imports_plus_tax_PKR_one = $solar_battery_on_peak_import_charges;
+        $solar_battery_on_peak_imports_plus_tax_PKR_two = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year2-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_three = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year3-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_four = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year4-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_five = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year5-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_six = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year6-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_seven = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year7-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_eight = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year8-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_nine = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year9-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_ten = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year10-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_eleven = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year11-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twelve = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year12-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_thirteen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year13-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_fourteen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year14-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_fifteen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year15-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_sixteen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year16-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_seventeen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year17-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_eighteen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year18-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_nineteen = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year19-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twenty = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year20-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twenty_one = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year21-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twenty_two = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year22-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twenty_three = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year23-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twenty_four = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year24-1));
+        $solar_battery_on_peak_imports_plus_tax_PKR_twenty_five = ceil($solar_battery_on_peak_imports_plus_tax_PKR_one) * pow(1.12,($year25-1));
+
+
+        // Annual Credit (+) or Payment (-) //
+
+        $solar_battery_annual_credit_plus_or_payment_minus_one = ($solar_battery_income_from_exports_PKR_one+$solar_battery_net_metered_benefits_one) - ($solar_battery_off_peak_imports_plus_tax_PKR_one+$solar_battery_on_peak_imports_plus_tax_PKR_one); 
+        $solar_battery_annual_credit_plus_or_payment_minus_two = ($solar_battery_income_from_exports_PKR_two+$solar_battery_net_metered_benefits_two) - ($solar_battery_off_peak_imports_plus_tax_PKR_two+$solar_battery_on_peak_imports_plus_tax_PKR_two); 
+        $solar_battery_annual_credit_plus_or_payment_minus_three = ($solar_battery_income_from_exports_PKR_three+$solar_battery_net_metered_benefits_three) - ($solar_battery_off_peak_imports_plus_tax_PKR_three+$solar_battery_on_peak_imports_plus_tax_PKR_three); 
+        $solar_battery_annual_credit_plus_or_payment_minus_four = ($solar_battery_income_from_exports_PKR_four+$solar_battery_net_metered_benefits_four) - ($solar_battery_off_peak_imports_plus_tax_PKR_four+$solar_battery_on_peak_imports_plus_tax_PKR_four); 
+        $solar_battery_annual_credit_plus_or_payment_minus_five = ($solar_battery_income_from_exports_PKR_five+$solar_battery_net_metered_benefits_five) - ($solar_battery_off_peak_imports_plus_tax_PKR_five+$solar_battery_on_peak_imports_plus_tax_PKR_five); 
+        $solar_battery_annual_credit_plus_or_payment_minus_six = ($solar_battery_income_from_exports_PKR_six+$solar_battery_net_metered_benefits_six) - ($solar_battery_off_peak_imports_plus_tax_PKR_six+$solar_battery_on_peak_imports_plus_tax_PKR_six); 
+        $solar_battery_annual_credit_plus_or_payment_minus_seven = ($solar_battery_income_from_exports_PKR_seven+$solar_battery_net_metered_benefits_seven) - ($solar_battery_off_peak_imports_plus_tax_PKR_seven+$solar_battery_on_peak_imports_plus_tax_PKR_seven); 
+        $solar_battery_annual_credit_plus_or_payment_minus_eight = ($solar_battery_income_from_exports_PKR_eight+$solar_battery_net_metered_benefits_eight) - ($solar_battery_off_peak_imports_plus_tax_PKR_eight+$solar_battery_on_peak_imports_plus_tax_PKR_eight); 
+        $solar_battery_annual_credit_plus_or_payment_minus_nine = ($solar_battery_income_from_exports_PKR_nine+$solar_battery_net_metered_benefits_nine) - ($solar_battery_off_peak_imports_plus_tax_PKR_nine+$solar_battery_on_peak_imports_plus_tax_PKR_nine); 
+        $solar_battery_annual_credit_plus_or_payment_minus_ten = ($solar_battery_income_from_exports_PKR_ten+$solar_battery_net_metered_benefits_ten) - ($solar_battery_off_peak_imports_plus_tax_PKR_ten+$solar_battery_on_peak_imports_plus_tax_PKR_ten);
+        $solar_battery_annual_credit_plus_or_payment_minus_eleven = ($solar_battery_income_from_exports_PKR_eleven+$solar_battery_net_metered_benefits_eleven) - ($solar_battery_off_peak_imports_plus_tax_PKR_eleven+$solar_battery_on_peak_imports_plus_tax_PKR_eleven); 
+        $solar_battery_annual_credit_plus_or_payment_minus_twelve = ($solar_battery_income_from_exports_PKR_twelve+$solar_battery_net_metered_benefits_twelve) - ($solar_battery_off_peak_imports_plus_tax_PKR_twelve+$solar_battery_on_peak_imports_plus_tax_PKR_twelve);  
+        $solar_battery_annual_credit_plus_or_payment_minus_thirteen = ($solar_battery_income_from_exports_PKR_thirteen+$solar_battery_net_metered_benefits_thirteen) - ($solar_battery_off_peak_imports_plus_tax_PKR_thirteen+$solar_battery_on_peak_imports_plus_tax_PKR_thirteen); 
+        $solar_battery_annual_credit_plus_or_payment_minus_fourteen = ($solar_battery_income_from_exports_PKR_fourteen+$solar_battery_net_metered_benefits_fourteen) - ($solar_battery_off_peak_imports_plus_tax_PKR_fourteen+$solar_battery_on_peak_imports_plus_tax_PKR_fourteen); 
+        $solar_battery_annual_credit_plus_or_payment_minus_fifteen = ($solar_battery_income_from_exports_PKR_fifteen+$solar_battery_net_metered_benefits_fifteen) - ($solar_battery_off_peak_imports_plus_tax_PKR_fifteen+$solar_battery_on_peak_imports_plus_tax_PKR_fifteen); 
+        $solar_battery_annual_credit_plus_or_payment_minus_sixteen = ($solar_battery_income_from_exports_PKR_sixteen+$solar_battery_net_metered_benefits_sixteen) - ($solar_battery_off_peak_imports_plus_tax_PKR_sixteen+$solar_battery_on_peak_imports_plus_tax_PKR_sixteen); 
+        $solar_battery_annual_credit_plus_or_payment_minus_seventeen = ($solar_battery_income_from_exports_PKR_seventeen+$solar_battery_net_metered_benefits_seventeen) - ($solar_battery_off_peak_imports_plus_tax_PKR_seventeen+$solar_battery_on_peak_imports_plus_tax_PKR_seventeen); 
+        $solar_battery_annual_credit_plus_or_payment_minus_eighteen = ($solar_battery_income_from_exports_PKR_eighteen+$solar_battery_net_metered_benefits_eighteen) - ($solar_battery_off_peak_imports_plus_tax_PKR_eighteen+$solar_battery_on_peak_imports_plus_tax_PKR_eighteen); 
+
+        $solar_battery_annual_credit_plus_or_payment_minus_nineteen = ($solar_battery_income_from_exports_PKR_nineteen+$solar_battery_net_metered_benefits_nineteen) - ($solar_battery_off_peak_imports_plus_tax_PKR_nineteen+$solar_battery_on_peak_imports_plus_tax_PKR_nineteen); 
+
+        $solar_battery_annual_credit_plus_or_payment_minus_twenty = ($solar_battery_income_from_exports_PKR_twenty+$solar_battery_net_metered_benefits_twenty) - ($solar_battery_off_peak_imports_plus_tax_PKR_twenty+$solar_battery_on_peak_imports_plus_tax_PKR_twenty);
+
+        $solar_battery_annual_credit_plus_or_payment_minus_twenty_one = ($solar_battery_income_from_exports_PKR_twenty_one+$solar_battery_net_metered_benefits_twenty_one) - ($solar_battery_off_peak_imports_plus_tax_PKR_twenty_one+$solar_battery_on_peak_imports_plus_tax_PKR_twenty_one);
+
+        $solar_battery_annual_credit_plus_or_payment_minus_twenty_two = ($solar_battery_income_from_exports_PKR_twenty_two+$solar_battery_net_metered_benefits_twenty_two) - ($solar_battery_off_peak_imports_plus_tax_PKR_twenty_two+$solar_battery_on_peak_imports_plus_tax_PKR_twenty_two);
+
+        $solar_battery_annual_credit_plus_or_payment_minus_twenty_three = ($solar_battery_income_from_exports_PKR_twenty_three+$solar_battery_net_metered_benefits_twenty_three) - ($solar_battery_off_peak_imports_plus_tax_PKR_twenty_three+$solar_battery_on_peak_imports_plus_tax_PKR_twenty_three);
+
+        $solar_battery_annual_credit_plus_or_payment_minus_twenty_four = ($solar_battery_income_from_exports_PKR_twenty_four+$solar_battery_net_metered_benefits_twenty_four) - ($solar_battery_off_peak_imports_plus_tax_PKR_twenty_four+$solar_battery_on_peak_imports_plus_tax_PKR_twenty_four);
+
+        $solar_battery_annual_credit_plus_or_payment_minus_twenty_five = ($solar_battery_income_from_exports_PKR_twenty_five+$solar_battery_net_metered_benefits_twenty_five) - ($solar_battery_off_peak_imports_plus_tax_PKR_twenty_five+$solar_battery_on_peak_imports_plus_tax_PKR_twenty_five);
+
+        // ZERO Energy Charge //
+
+        $solar_battery_zero_energy_charge_one = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_one > 1){
+            $solar_battery_zero_energy_charge_one = 1;
+        }
+        $solar_battery_zero_energy_charge_two = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_two > 1){
+            $solar_battery_zero_energy_charge_two = 1;
+        }
+        $solar_battery_zero_energy_charge_three = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_three > 1){
+            $solar_battery_zero_energy_charge_three = 1;
+        }
+        $solar_battery_zero_energy_charge_four = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_four > 1){
+            $solar_battery_zero_energy_charge_four = 1;
+        }
+
+        $solar_battery_zero_energy_charge_five = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_five > 1){
+            $solar_battery_zero_energy_charge_five = 1;
+        }
+
+        $solar_battery_zero_energy_charge_six = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_six > 1){
+            $solar_battery_zero_energy_charge_six = 1;
+        }
+
+        $solar_battery_zero_energy_charge_seven = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_seven > 1){
+            $solar_battery_zero_energy_charge_seven = 1;
+        }
+
+        $solar_battery_zero_energy_charge_eight = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_eight > 1){
+            $solar_battery_zero_energy_charge_eight = 1;
+        }
+
+        $solar_battery_zero_energy_charge_nine = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_nine > 1){
+            $solar_battery_zero_energy_charge_nine = 1;
+        }
+
+        $solar_battery_zero_energy_charge_ten = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_ten > 1){
+            $solar_battery_zero_energy_charge_ten = 1;
+        }
+
+        $solar_battery_zero_energy_charge_eleven = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_eleven > 1){
+            $solar_battery_zero_energy_charge_eleven = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twelve = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twelve > 1){
+            $solar_battery_zero_energy_charge_twelve = 1;
+        }
+
+        $solar_battery_zero_energy_charge_thirteen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_thirteen > 1){
+            $solar_battery_zero_energy_charge_thirteen = 1;
+        }
+
+        $solar_battery_zero_energy_charge_fourteen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_fourteen > 1){
+            $solar_battery_zero_energy_charge_fourteen = 1;
+        }
+        
+        $solar_battery_zero_energy_charge_fifteen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_fifteen > 1){
+            $solar_battery_zero_energy_charge_fifteen = 1;
+        }
+
+        $solar_battery_zero_energy_charge_sixteen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_sixteen > 1){
+            $solar_battery_zero_energy_charge_sixteen = 1;
+        }
+
+        $solar_battery_zero_energy_charge_seventeen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_seventeen > 1){
+            $solar_battery_zero_energy_charge_seventeen = 1;
+        }
+
+        $solar_battery_zero_energy_charge_eighteen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_eighteen > 1){
+            $solar_battery_zero_energy_charge_eighteen = 1;
+        }
+
+        $solar_battery_zero_energy_charge_nineteen = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_nineteen > 1){
+            $solar_battery_zero_energy_charge_nineteen = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twenty = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twenty > 1){
+            $solar_battery_zero_energy_charge_twenty = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twenty_one = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twenty_one > 1){
+            $solar_battery_zero_energy_charge_twenty_one = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twenty_two = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twenty_two > 1){
+            $solar_battery_zero_energy_charge_twenty_two = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twenty_three = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twenty_three > 1){
+            $solar_battery_zero_energy_charge_twenty_three = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twenty_four = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twenty_four > 1){
+            $solar_battery_zero_energy_charge_twenty_four = 1;
+        }
+
+        $solar_battery_zero_energy_charge_twenty_five = 0;
+        if($solar_battery_annual_credit_plus_or_payment_minus_twenty_five > 1){
+            $solar_battery_zero_energy_charge_twenty_five = 1;
+        }
+
+        // Total Savings in Electricity Charges //
+
+        $solar_battery_initial_investment_cum_savings_usage = ($solor_system_cost + $battery_cost + $cost_of_additional_panels_for_battery_charging);
+
+        $solar_battery_total_savings_in_electricity_charges_usage = - 1* $solar_battery_initial_investment_cum_savings_usage;
+
+                $solar_battery_total_savings_in_electricity_charges_one = $electricity_charges_without_solar_one + $solar_battery_annual_credit_plus_or_payment_minus_one;
+
+        $solar_battery_total_savings_in_electricity_charges_two = $electricity_charges_without_solar_two + $solar_battery_annual_credit_plus_or_payment_minus_two;
+
+        $solar_battery_total_savings_in_electricity_charges_three = $electricity_charges_without_solar_three + $solar_battery_annual_credit_plus_or_payment_minus_three;
+
+        $solar_battery_total_savings_in_electricity_charges_four = $electricity_charges_without_solar_four + $solar_battery_annual_credit_plus_or_payment_minus_four;
+
+        $solar_battery_total_savings_in_electricity_charges_five = $electricity_charges_without_solar_five + $solar_battery_annual_credit_plus_or_payment_minus_five;
+
+        $solar_battery_total_savings_in_electricity_charges_six = $electricity_charges_without_solar_six + $solar_battery_annual_credit_plus_or_payment_minus_six;
+
+        $solar_battery_total_savings_in_electricity_charges_seven = $electricity_charges_without_solar_seven + $solar_battery_annual_credit_plus_or_payment_minus_seven;
+
+        $solar_battery_total_savings_in_electricity_charges_eight = $electricity_charges_without_solar_eight + $solar_battery_annual_credit_plus_or_payment_minus_eight;
+
+        $solar_battery_total_savings_in_electricity_charges_nine = $electricity_charges_without_solar_nine + $solar_battery_annual_credit_plus_or_payment_minus_nine;
+
+        $solar_battery_total_savings_in_electricity_charges_ten = $electricity_charges_without_solar_ten + $solar_battery_annual_credit_plus_or_payment_minus_ten;
+
+        $solar_battery_total_savings_in_electricity_charges_eleven = $electricity_charges_without_solar_eleven + $solar_battery_annual_credit_plus_or_payment_minus_eleven;
+
+        $solar_battery_total_savings_in_electricity_charges_twelve = $electricity_charges_without_solar_twelve + $solar_battery_annual_credit_plus_or_payment_minus_twelve;
+
+
+        $solar_battery_total_savings_in_electricity_charges_thirteen = $electricity_charges_without_solar_thirteen + $solar_battery_annual_credit_plus_or_payment_minus_thirteen;
+
+        $solar_battery_total_savings_in_electricity_charges_fourteen = $electricity_charges_without_solar_fourteen + $solar_battery_annual_credit_plus_or_payment_minus_fourteen;
+
+        $solar_battery_total_savings_in_electricity_charges_fifteen = $electricity_charges_without_solar_fifteen + $solar_battery_annual_credit_plus_or_payment_minus_fifteen;
+
+        $solar_battery_total_savings_in_electricity_charges_sixteen = $electricity_charges_without_solar_sixteen + $solar_battery_annual_credit_plus_or_payment_minus_sixteen;
+
+        $solar_battery_total_savings_in_electricity_charges_seventeen = $electricity_charges_without_solar_seventeen + $solar_battery_annual_credit_plus_or_payment_minus_seventeen;
+
+        $solar_battery_total_savings_in_electricity_charges_eighteen = $electricity_charges_without_solar_eighteen + $solar_battery_annual_credit_plus_or_payment_minus_eighteen;
+
+        $solar_battery_total_savings_in_electricity_charges_nineteen = $electricity_charges_without_solar_nineteen + $solar_battery_annual_credit_plus_or_payment_minus_nineteen;
+
+        $solar_battery_total_savings_in_electricity_charges_twenty = $electricity_charges_without_solar_twenty + $solar_battery_annual_credit_plus_or_payment_minus_twenty;
+
+        $solar_battery_total_savings_in_electricity_charges_twenty_one = $electricity_charges_without_solar_twenty_one + $solar_battery_annual_credit_plus_or_payment_minus_twenty_one;
+
+        $solar_battery_total_savings_in_electricity_charges_twenty_two = $electricity_charges_without_solar_twenty_two + $solar_battery_annual_credit_plus_or_payment_minus_twenty_two;
+
+        $solar_battery_total_savings_in_electricity_charges_twenty_three = $electricity_charges_without_solar_twenty_three + $solar_battery_annual_credit_plus_or_payment_minus_twenty_three;
+
+        $solar_battery_total_savings_in_electricity_charges_twenty_four = $electricity_charges_without_solar_twenty_four + $solar_battery_annual_credit_plus_or_payment_minus_twenty_four;
+
+        $solar_battery_total_savings_in_electricity_charges_twenty_five = $electricity_charges_without_solar_twenty_five + $solar_battery_annual_credit_plus_or_payment_minus_twenty_five;
+
+        // Initial Investment/Cum Savings //
+
+        $solar_battery_initial_investment_cum_savings_one = $solar_battery_total_savings_in_electricity_charges_one;
+
+        $solar_battery_initial_investment_cum_savings_two = $solar_battery_initial_investment_cum_savings_one + $solar_battery_total_savings_in_electricity_charges_two;
+
+        $solar_battery_initial_investment_cum_savings_three = $solar_battery_initial_investment_cum_savings_two + $solar_battery_total_savings_in_electricity_charges_three;
+
+        $solar_battery_initial_investment_cum_savings_four = $solar_battery_initial_investment_cum_savings_three + $solar_battery_total_savings_in_electricity_charges_four;
+
+        $solar_battery_initial_investment_cum_savings_five = $solar_battery_initial_investment_cum_savings_four + $solar_battery_total_savings_in_electricity_charges_five;
+
+        $solar_battery_initial_investment_cum_savings_six = $solar_battery_initial_investment_cum_savings_five + $solar_battery_total_savings_in_electricity_charges_six;
+
+        $solar_battery_initial_investment_cum_savings_seven = $solar_battery_initial_investment_cum_savings_six + $solar_battery_total_savings_in_electricity_charges_seven;
+
+        $solar_battery_initial_investment_cum_savings_eight = $solar_battery_initial_investment_cum_savings_seven + $solar_battery_total_savings_in_electricity_charges_eight;
+
+        $solar_battery_initial_investment_cum_savings_nine = $solar_battery_initial_investment_cum_savings_eight + $solar_battery_total_savings_in_electricity_charges_nine;
+
+        $solar_battery_initial_investment_cum_savings_ten = $solar_battery_initial_investment_cum_savings_nine + $solar_battery_total_savings_in_electricity_charges_ten;
+
+        $solar_battery_initial_investment_cum_savings_eleven = $solar_battery_initial_investment_cum_savings_ten + $solar_battery_total_savings_in_electricity_charges_eleven;
+
+        $solar_battery_initial_investment_cum_savings_twelve = $solar_battery_initial_investment_cum_savings_eleven + $solar_battery_total_savings_in_electricity_charges_twelve;
+
+
+        $solar_battery_initial_investment_cum_savings_thirteen = $solar_battery_initial_investment_cum_savings_twelve + $solar_battery_total_savings_in_electricity_charges_thirteen;
+
+        $solar_battery_initial_investment_cum_savings_fourteen = $solar_battery_initial_investment_cum_savings_thirteen + $solar_battery_total_savings_in_electricity_charges_fourteen;
+
+        $solar_battery_initial_investment_cum_savings_fifteen = $solar_battery_initial_investment_cum_savings_fourteen + $solar_battery_total_savings_in_electricity_charges_fifteen;
+
+        $solar_battery_initial_investment_cum_savings_sixteen = $solar_battery_initial_investment_cum_savings_fifteen + $solar_battery_total_savings_in_electricity_charges_sixteen;
+
+        $solar_battery_initial_investment_cum_savings_seventeen = $solar_battery_initial_investment_cum_savings_sixteen + $solar_battery_total_savings_in_electricity_charges_seventeen;
+
+        $solar_battery_initial_investment_cum_savings_eighteen = $solar_battery_initial_investment_cum_savings_seventeen + $solar_battery_total_savings_in_electricity_charges_eighteen;
+
+        $solar_battery_initial_investment_cum_savings_nineteen = $solar_battery_initial_investment_cum_savings_eighteen + $solar_battery_total_savings_in_electricity_charges_nineteen;
+
+        $solar_battery_initial_investment_cum_savings_twenty = $solar_battery_initial_investment_cum_savings_nineteen + $solar_battery_total_savings_in_electricity_charges_twenty;
+
+        $solar_battery_initial_investment_cum_savings_twenty_one = $solar_battery_initial_investment_cum_savings_twenty + $solar_battery_total_savings_in_electricity_charges_twenty_one;
+
+        $solar_battery_initial_investment_cum_savings_twenty_two = $solar_battery_initial_investment_cum_savings_twenty_one + $solar_battery_total_savings_in_electricity_charges_twenty_two;
+
+        $solar_battery_initial_investment_cum_savings_twenty_three = $solar_battery_initial_investment_cum_savings_twenty_two + $solar_battery_total_savings_in_electricity_charges_twenty_three;
+        
+
+        $solar_battery_initial_investment_cum_savings_twenty_four = $solar_battery_initial_investment_cum_savings_twenty_three + $solar_battery_total_savings_in_electricity_charges_twenty_four;
+        
+        $solar_battery_initial_investment_cum_savings_twenty_five = $solar_battery_initial_investment_cum_savings_twenty_four + $solar_battery_total_savings_in_electricity_charges_twenty_five;
+
+
+        // Cumulative Payback cash flow (PKR) //
+        $solar_battery_cumulative_payback_cash_flow_PKR_usage = - 1* $solar_battery_initial_investment_cum_savings_usage;
+        $solar_battery_cumulative_payback_cash_flow_PKR_one = $solar_battery_cumulative_payback_cash_flow_PKR_usage + $solar_battery_total_savings_in_electricity_charges_one;
+        $solar_battery_cumulative_payback_cash_flow_PKR_two = $solar_battery_cumulative_payback_cash_flow_PKR_one + $solar_battery_total_savings_in_electricity_charges_two;
+        $solar_battery_cumulative_payback_cash_flow_PKR_three = $solar_battery_cumulative_payback_cash_flow_PKR_two + $solar_battery_total_savings_in_electricity_charges_three;
+        $solar_battery_cumulative_payback_cash_flow_PKR_four = $solar_battery_cumulative_payback_cash_flow_PKR_three + $solar_battery_total_savings_in_electricity_charges_four;
+        $solar_battery_cumulative_payback_cash_flow_PKR_five = $solar_battery_cumulative_payback_cash_flow_PKR_four + $solar_battery_total_savings_in_electricity_charges_five;
+        $solar_battery_cumulative_payback_cash_flow_PKR_six = $solar_battery_cumulative_payback_cash_flow_PKR_five + $solar_battery_total_savings_in_electricity_charges_six;
+        $solar_battery_cumulative_payback_cash_flow_PKR_seven = $solar_battery_cumulative_payback_cash_flow_PKR_six + $solar_battery_total_savings_in_electricity_charges_seven;
+        $solar_battery_cumulative_payback_cash_flow_PKR_eight = $solar_battery_cumulative_payback_cash_flow_PKR_seven + $solar_battery_total_savings_in_electricity_charges_eight;
+        $solar_battery_cumulative_payback_cash_flow_PKR_nine = $solar_battery_cumulative_payback_cash_flow_PKR_eight + $solar_battery_total_savings_in_electricity_charges_nine;
+        $solar_battery_cumulative_payback_cash_flow_PKR_ten = $solar_battery_cumulative_payback_cash_flow_PKR_nine + $solar_battery_total_savings_in_electricity_charges_ten;
+        $solar_battery_cumulative_payback_cash_flow_PKR_eleven = $solar_battery_cumulative_payback_cash_flow_PKR_ten + $solar_battery_total_savings_in_electricity_charges_eleven;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twelve = $solar_battery_cumulative_payback_cash_flow_PKR_eleven + $solar_battery_total_savings_in_electricity_charges_twelve;
+        $solar_battery_cumulative_payback_cash_flow_PKR_thirteen = $solar_battery_cumulative_payback_cash_flow_PKR_twelve + $solar_battery_total_savings_in_electricity_charges_thirteen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_fourteen = $solar_battery_cumulative_payback_cash_flow_PKR_thirteen + $solar_battery_total_savings_in_electricity_charges_fourteen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_fifteen = $solar_battery_cumulative_payback_cash_flow_PKR_fourteen + $solar_battery_total_savings_in_electricity_charges_fifteen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_sixteen = $solar_battery_cumulative_payback_cash_flow_PKR_fifteen + $solar_battery_total_savings_in_electricity_charges_sixteen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_seventeen = $solar_battery_cumulative_payback_cash_flow_PKR_sixteen + $solar_battery_total_savings_in_electricity_charges_seventeen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_eighteen = $solar_battery_cumulative_payback_cash_flow_PKR_seventeen + $solar_battery_total_savings_in_electricity_charges_eighteen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_nineteen = $solar_battery_cumulative_payback_cash_flow_PKR_eighteen + $solar_battery_total_savings_in_electricity_charges_nineteen;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twenty = $solar_battery_cumulative_payback_cash_flow_PKR_nineteen + $solar_battery_total_savings_in_electricity_charges_twenty;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twenty_one = $solar_battery_cumulative_payback_cash_flow_PKR_twenty + $solar_battery_total_savings_in_electricity_charges_twenty_one;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twenty_two = $solar_battery_cumulative_payback_cash_flow_PKR_twenty_one + $solar_battery_total_savings_in_electricity_charges_twenty_two;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twenty_three = $solar_battery_cumulative_payback_cash_flow_PKR_twenty_two + $solar_battery_total_savings_in_electricity_charges_twenty_three;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twenty_four = $solar_battery_cumulative_payback_cash_flow_PKR_twenty_three + $solar_battery_total_savings_in_electricity_charges_twenty_four;
+        $solar_battery_cumulative_payback_cash_flow_PKR_twenty_five = $solar_battery_cumulative_payback_cash_flow_PKR_twenty_four + $solar_battery_total_savings_in_electricity_charges_twenty_five;
+
+
+        // Simple Payback Period One
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_one <= 0) {
+            $solar_battery_simple_payback_period_one = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_usage > 0){
+            $solar_battery_simple_payback_period_one = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_usage/$solar_battery_total_savings_in_electricity_charges_one) > 0){
+            $solar_battery_simple_payback_period_one = (-$solar_battery_cumulative_payback_cash_flow_PKR_usage/$solar_battery_total_savings_in_electricity_charges_one);
+        }
+        else{
+            $solar_battery_simple_payback_period_one = 0;
+        }
+
+        // Simple Payback Period two
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_two <= 0) {
+            $solar_battery_simple_payback_period_two = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_one > 0){
+            $solar_battery_simple_payback_period_two = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_one/$solar_battery_total_savings_in_electricity_charges_two) > 0){
+            $solar_battery_simple_payback_period_two = (-$solar_battery_cumulative_payback_cash_flow_PKR_one/$solar_battery_total_savings_in_electricity_charges_two);
+        }
+        else{
+            $solar_battery_simple_payback_period_two = 0;
+        }
+
+
+        // Simple Payback Period three
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_three <= 0) {
+            $solar_battery_simple_payback_period_three = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_two > 0){
+            $solar_battery_simple_payback_period_three = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_two/$solar_battery_total_savings_in_electricity_charges_three) > 0){
+            $solar_battery_simple_payback_period_three = (-$solar_battery_cumulative_payback_cash_flow_PKR_two/$solar_battery_total_savings_in_electricity_charges_three);
+        }
+        else{
+            $solar_battery_simple_payback_period_three = 0;
+        }
+
+
+        // Simple Payback Period four
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_four <= 0) {
+            $solar_battery_simple_payback_period_four = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_three > 0){
+            $solar_battery_simple_payback_period_four = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_three/$solar_battery_total_savings_in_electricity_charges_four) > 0){
+            $solar_battery_simple_payback_period_four = (-$solar_battery_cumulative_payback_cash_flow_PKR_three/$solar_battery_total_savings_in_electricity_charges_four);
+        }
+        else{
+            $solar_battery_simple_payback_period_four = 0;
+        }
+
+
+        // Simple Payback Period five
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_five <= 0) {
+            $solar_battery_simple_payback_period_five = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_four > 0){
+            $solar_battery_simple_payback_period_five = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_four/$solar_battery_total_savings_in_electricity_charges_five) > 0){
+            $solar_battery_simple_payback_period_five = (-$solar_battery_cumulative_payback_cash_flow_PKR_four/$solar_battery_total_savings_in_electricity_charges_five);
+        }
+        else{
+            $solar_battery_simple_payback_period_five = 0;
+        }
+
+
+        // Simple Payback Period six
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_six <= 0) {
+            $solar_battery_simple_payback_period_six = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_five > 0){
+            $solar_battery_simple_payback_period_six = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_five/$solar_battery_total_savings_in_electricity_charges_six) > 0){
+            $solar_battery_simple_payback_period_six = (-$solar_battery_cumulative_payback_cash_flow_PKR_five/$solar_battery_total_savings_in_electricity_charges_six);
+        }
+        else{
+            $solar_battery_simple_payback_period_six = 0;
+        }
+
+        // Simple Payback Period seven
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_seven <= 0) {
+            $solar_battery_simple_payback_period_seven = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_six > 0){
+            $solar_battery_simple_payback_period_seven = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_six/$solar_battery_total_savings_in_electricity_charges_seven) > 0){
+            $solar_battery_simple_payback_period_seven = (-$solar_battery_cumulative_payback_cash_flow_PKR_six/$solar_battery_total_savings_in_electricity_charges_seven);
+        }
+        else{
+            $solar_battery_simple_payback_period_seven = 0;
+        }
+
+
+        // Simple Payback Period eight
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_eight <= 0) {
+            $solar_battery_simple_payback_period_eight = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_seven > 0){
+            $solar_battery_simple_payback_period_eight = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_seven/$solar_battery_total_savings_in_electricity_charges_eight) > 0){
+            $solar_battery_simple_payback_period_eight = (-$solar_battery_cumulative_payback_cash_flow_PKR_seven/$solar_battery_total_savings_in_electricity_charges_eight);
+        }
+        else{
+            $solar_battery_simple_payback_period_eight = 0;
+        }
+
+        // Simple Payback Period nine
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_nine <= 0) {
+            $solar_battery_simple_payback_period_nine = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_eight > 0){
+            $solar_battery_simple_payback_period_nine = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_eight/$solar_battery_total_savings_in_electricity_charges_nine) > 0){
+            $solar_battery_simple_payback_period_nine = (-$solar_battery_cumulative_payback_cash_flow_PKR_eight/$solar_battery_total_savings_in_electricity_charges_nine);
+        }
+        else{
+            $solar_battery_simple_payback_period_nine = 0;
+        }
+
+        // Simple Payback Period ten
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_ten <= 0) {
+            $solar_battery_simple_payback_period_ten = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_nine > 0){
+            $solar_battery_simple_payback_period_ten = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_nine/$solar_battery_total_savings_in_electricity_charges_ten) > 0){
+            $solar_battery_simple_payback_period_ten = (-$solar_battery_cumulative_payback_cash_flow_PKR_nine/$solar_battery_total_savings_in_electricity_charges_ten);
+        }
+        else{
+            $solar_battery_simple_payback_period_ten = 0;
+        }
+
+        // Simple Payback Period eleven
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_eleven <= 0) {
+            $solar_battery_simple_payback_period_eleven = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_ten > 0){
+            $solar_battery_simple_payback_period_eleven = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_ten/$solar_battery_total_savings_in_electricity_charges_eleven) > 0){
+            $solar_battery_simple_payback_period_eleven = (-$solar_battery_cumulative_payback_cash_flow_PKR_ten/$solar_battery_total_savings_in_electricity_charges_eleven);
+        }
+        else{
+            $solar_battery_simple_payback_period_eleven = 0;
+        }
+
+        // Simple Payback Period twelve
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twelve <= 0) {
+            $solar_battery_simple_payback_period_twelve = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_eleven > 0){
+            $solar_battery_simple_payback_period_twelve = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_eleven/$solar_battery_total_savings_in_electricity_charges_twelve) > 0){
+            $solar_battery_simple_payback_period_twelve = (-$solar_battery_cumulative_payback_cash_flow_PKR_eleven/$solar_battery_total_savings_in_electricity_charges_twelve);
+        }
+        else{
+            $solar_battery_simple_payback_period_twelve = 0;
+        }
+
+
+
+        // Simple Payback Period thirteen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_thirteen <= 0) {
+            $solar_battery_simple_payback_period_thirteen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_twelve > 0){
+            $solar_battery_simple_payback_period_thirteen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_twelve/$solar_battery_total_savings_in_electricity_charges_thirteen) > 0){
+            $solar_battery_simple_payback_period_thirteen = (-$solar_battery_cumulative_payback_cash_flow_PKR_twelve/$solar_battery_total_savings_in_electricity_charges_thirteen);
+        }
+        else{
+            $solar_battery_simple_payback_period_thirteen = 0;
+        }
+
+
+        // Simple Payback Period fourteen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_fourteen <= 0) {
+            $solar_battery_simple_payback_period_fourteen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_thirteen > 0){
+            $solar_battery_simple_payback_period_fourteen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_thirteen/$solar_battery_total_savings_in_electricity_charges_fourteen) > 0){
+            $solar_battery_simple_payback_period_fourteen = (-$solar_battery_cumulative_payback_cash_flow_PKR_thirteen/$solar_battery_total_savings_in_electricity_charges_fourteen);
+        }
+        else{
+            $solar_battery_simple_payback_period_fourteen = 0;
+        }
+
+
+        // Simple Payback Period fifteen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_fifteen <= 0) {
+            $solar_battery_simple_payback_period_fifteen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_fourteen > 0){
+            $solar_battery_simple_payback_period_fifteen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_fourteen/$solar_battery_total_savings_in_electricity_charges_fifteen) > 0){
+            $solar_battery_simple_payback_period_fifteen = (-$solar_battery_cumulative_payback_cash_flow_PKR_fourteen/$solar_battery_total_savings_in_electricity_charges_fifteen);
+        }
+        else{
+            $solar_battery_simple_payback_period_fifteen = 0;
+        }
+
+
+        // Simple Payback Period sixteen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_sixteen <= 0) {
+            $solar_battery_simple_payback_period_sixteen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_fifteen > 0){
+            $solar_battery_simple_payback_period_sixteen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_fifteen/$solar_battery_total_savings_in_electricity_charges_sixteen) > 0){
+            $solar_battery_simple_payback_period_sixteen = (-$solar_battery_cumulative_payback_cash_flow_PKR_fifteen/$solar_battery_total_savings_in_electricity_charges_sixteen);
+        }
+        else{
+            $solar_battery_simple_payback_period_sixteen = 0;
+        }
+
+
+        // Simple Payback Period seventeen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_seventeen <= 0) {
+            $solar_battery_simple_payback_period_seventeen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_sixteen > 0){
+            $solar_battery_simple_payback_period_seventeen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_sixteen/$solar_battery_total_savings_in_electricity_charges_seventeen) > 0){
+            $solar_battery_simple_payback_period_seventeen = (-$solar_battery_cumulative_payback_cash_flow_PKR_sixteen/$solar_battery_total_savings_in_electricity_charges_seventeen);
+        }
+        else{
+            $solar_battery_simple_payback_period_seventeen = 0;
+        }
+
+
+        // Simple Payback Period eighteen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_eighteen <= 0) {
+            $solar_battery_simple_payback_period_eighteen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_seventeen > 0){
+            $solar_battery_simple_payback_period_eighteen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_seventeen/$solar_battery_total_savings_in_electricity_charges_eighteen) > 0){
+            $solar_battery_simple_payback_period_eighteen = (-$solar_battery_cumulative_payback_cash_flow_PKR_seventeen/$solar_battery_total_savings_in_electricity_charges_eighteen);
+        }
+        else{
+            $solar_battery_simple_payback_period_eighteen = 0;
+        }
+
+        // Simple Payback Period nineteen
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_nineteen <= 0) {
+            $solar_battery_simple_payback_period_nineteen = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_eighteen > 0){
+            $solar_battery_simple_payback_period_nineteen = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_eighteen/$solar_battery_total_savings_in_electricity_charges_nineteen) > 0){
+            $solar_battery_simple_payback_period_nineteen = (-$solar_battery_cumulative_payback_cash_flow_PKR_eighteen/$solar_battery_total_savings_in_electricity_charges_nineteen);
+        }
+        else{
+            $solar_battery_simple_payback_period_nineteen = 0;
+        }
+
+        // Simple Payback Period twenty
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twenty <= 0) {
+            $solar_battery_simple_payback_period_twenty = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_nineteen > 0){
+            $solar_battery_simple_payback_period_twenty = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_nineteen/$solar_battery_total_savings_in_electricity_charges_twenty) > 0){
+            $solar_battery_simple_payback_period_twenty = (-$solar_battery_cumulative_payback_cash_flow_PKR_nineteen/$solar_battery_total_savings_in_electricity_charges_twenty);
+        }
+        else{
+            $solar_battery_simple_payback_period_twenty = 0;
+        }
+
+        // Simple Payback Period twenty_one
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twenty_one <= 0) {
+            $solar_battery_simple_payback_period_twenty_one = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_twenty > 0){
+            $solar_battery_simple_payback_period_twenty_one = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_twenty/$solar_battery_total_savings_in_electricity_charges_twenty_one) > 0){
+            $solar_battery_simple_payback_period_twenty_one = (-$solar_battery_cumulative_payback_cash_flow_PKR_twenty/$solar_battery_total_savings_in_electricity_charges_twenty_one);
+        }
+        else{
+            $solar_battery_simple_payback_period_twenty_one = 0;
+        }
+
+        // Simple Payback Period twenty_two
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twenty_two <= 0) {
+            $solar_battery_simple_payback_period_twenty_two = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_twenty_one > 0){
+            $solar_battery_simple_payback_period_twenty_two = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_one/$solar_battery_total_savings_in_electricity_charges_twenty_two) > 0){
+            $solar_battery_simple_payback_period_twenty_two = (-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_one/$solar_battery_total_savings_in_electricity_charges_twenty_two);
+        }
+        else{
+            $solar_battery_simple_payback_period_twenty_two = 0;
+        }
+
+
+        // Simple Payback Period twenty_three
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twenty_three <= 0) {
+            $solar_battery_simple_payback_period_twenty_three = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_twenty_two > 0){
+            $solar_battery_simple_payback_period_twenty_three = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_two/$solar_battery_total_savings_in_electricity_charges_twenty_three) > 0){
+            $solar_battery_simple_payback_period_twenty_three = (-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_two/$solar_battery_total_savings_in_electricity_charges_twenty_three);
+        }
+        else{
+            $solar_battery_simple_payback_period_twenty_three = 0;
+        }
+
+
+        // Simple Payback Period twenty_four
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twenty_four <= 0) {
+            $solar_battery_simple_payback_period_twenty_four = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_twenty_three > 0){
+            $solar_battery_simple_payback_period_twenty_four = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_three/$solar_battery_total_savings_in_electricity_charges_twenty_four) > 0){
+            $solar_battery_simple_payback_period_twenty_four = (-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_three/$solar_battery_total_savings_in_electricity_charges_twenty_four);
+        }
+        else{
+            $solar_battery_simple_payback_period_twenty_four = 0;
+        }
+
+        // Simple Payback Period twenty_five
+        if ($solar_battery_cumulative_payback_cash_flow_PKR_twenty_five <= 0) {
+            $solar_battery_simple_payback_period_twenty_five = 1;
+        }
+        elseif($solar_battery_cumulative_payback_cash_flow_PKR_twenty_four > 0){
+            $solar_battery_simple_payback_period_twenty_five = 0;
+        }
+        elseif((-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_four/$solar_battery_total_savings_in_electricity_charges_twenty_five) > 0){
+            $solar_battery_simple_payback_period_twenty_five = (-$solar_battery_cumulative_payback_cash_flow_PKR_twenty_four/$solar_battery_total_savings_in_electricity_charges_twenty_five);
+        }
+        else{
+            $solar_battery_simple_payback_period_twenty_five = 0;
+        }
+
+
+        $G23 = $solar_battery_simple_payback_period_one + $solar_battery_simple_payback_period_two + $solar_battery_simple_payback_period_three + $solar_battery_simple_payback_period_four + $solar_battery_simple_payback_period_five + $solar_battery_simple_payback_period_six + $solar_battery_simple_payback_period_seven + $solar_battery_simple_payback_period_eight + $solar_battery_simple_payback_period_nine + $solar_battery_simple_payback_period_ten + $solar_battery_simple_payback_period_eleven + $solar_battery_simple_payback_period_twelve + $solar_battery_simple_payback_period_thirteen + $solar_battery_simple_payback_period_fourteen + $solar_battery_simple_payback_period_fifteen + $solar_battery_simple_payback_period_sixteen + $solar_battery_simple_payback_period_seventeen + $solar_battery_simple_payback_period_eighteen + $solar_battery_simple_payback_period_nineteen + $solar_battery_simple_payback_period_twenty + $solar_battery_simple_payback_period_twenty_one + $solar_battery_simple_payback_period_twenty_two + $solar_battery_simple_payback_period_twenty_three + $solar_battery_simple_payback_period_twenty_four + $solar_battery_simple_payback_period_twenty_five;
+
+        // echo (float)number_format($D23, 2, '.', '');
+        // echo '<br/>';
+        // echo (float)number_format($G23, 2, '.', '');
+        // die();
+
+
+        // Webpage OutPut //
+
+        echo '<br/>';
+        echo 'Total Solar Generation';
+        echo '<br/>';
+        echo $total_solar_generation_solar_only = $total_solar_generation;
+        echo '<br/>';
+        echo $total_solar_generation_solar_plus_battery = $solar_battery_total_solar_generation;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'Self Use';
+        echo '<br/>';
+        echo $self_use_solar_only = $self_use;
+        echo '<br/>';
+        echo $self_use_solar_plus_battery = $solar_battery_self_use_usage;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'Net metered';
+        echo '<br/>';
+        echo $net_metered_solar_only = $net_metered_off_peak_1st_year_usage;
+        echo '<br/>';
+        echo $net_metered_solar_plus_battery = $solar_battery_net_metered_off_peak_usage;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'Export';
+        echo '<br/>';
+        echo $export_solar_only = $excess_export_1st_year_usage;
+        echo '<br/>';
+        echo $export_solar_plus_battery = $solar_battery_excess_export_usage;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'On Peak';
+        echo '<br/>';
+        echo $on_peak_import_without_solar = $no_solar_on_peak_first_year_usage;
+        echo '<br/>';
+        echo $on_peak_import_solar_only = $on_peak_import_1st_year_usage;
+        echo '<br/>';
+        echo $on_peak_import_solar_plus_battery = $solar_battery_on_peak_import_usage;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'Off Peak';
+        echo '<br/>';
+        echo $off_peak_import_without_solar = $no_solar_off_peak_first_year_usage;
+        echo '<br/>';
+        echo $off_peak_import_solar_only = $off_peak_import_after_netting_off_1st_year_usage;
+        echo '<br/>';
+        echo $off_peak_import_solar_plus_battery = $solar_battery_off_peak_import_after_netting_off_usage;
+        
+
+        echo '<br/>';
+        echo 'Battery Use';
+        echo '<br/>';
+        echo $battery_use_solar_only = 0;
+        echo '<br/>';
+        echo $battery_use_solar_plus_battery = $total_battery_charge_available_sum;
+
+        echo '<br/>';
+        echo 'Export+Net Metered';
+        echo '<br/>';
+        echo $export_plus_net_metered_solar_only = $net_metered_solar_only + $export_solar_only;
+        echo '<br/>';
+        echo $export_plus_net_metered_solar_plus_battery = $net_metered_solar_plus_battery + $export_solar_plus_battery;
+
+        echo '<br/>';
+        echo 'Solar Self Use';
+        echo '<br/>';
+        echo $solar_self_use_solar_only = $self_use;
+        echo '<br/>';
+        echo $solar_self_use_solar_plus_battery = $self_use_solar_plus_battery - $battery_use_solar_plus_battery;
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Grid use';
+        echo '<br/>';
+        echo $grid_use_without_solar = $on_peak_import_without_solar + $off_peak_import_without_solar;
+        echo '<br/>';
+        echo $grid_use_solar_only = $on_peak_import_solar_only + $off_peak_import_solar_only;
+        echo '<br/>';
+        echo $grid_use_solar_plus_battery = $on_peak_import_solar_plus_battery + $off_peak_import_solar_plus_battery;
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Self use';
+        echo '<br/>';
+        echo $self_use_solar_only = $solar_self_use_solar_only;
+        echo '<br/>';
+        echo $self_use_solar_plus_battery = $solar_self_use_solar_plus_battery + $battery_use_solar_plus_battery;
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Net metered + Export';
+        echo '<br/>';
+        echo $net_metered_plus_export_solar_only = $export_plus_net_metered_solar_only;
+        echo '<br/>';
+        echo $net_metered_plus_export_solar_plus_battery = $export_plus_net_metered_solar_plus_battery;
+
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'SUM';
+        echo '<br/>';
+        echo $sum_solar_only = $grid_use_solar_only + $self_use_solar_only + $net_metered_plus_export_solar_only;
+        echo '<br/>';
+        echo $sum_solar_plus_battery = $grid_use_solar_plus_battery + $self_use_solar_plus_battery + $net_metered_plus_export_solar_plus_battery;
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Grid use';
+        echo '<br/>';
+        echo $grid_use_without_solar_percentage = '100';
+        echo '<br/>';
+        echo $grid_use_solar_only_percentage = round(number_format(($grid_use_solar_only/$sum_solar_only) * 100, 2));
+        echo '<br/>';
+        echo $grid_use_solar_plus_battery_percentage = round(number_format(($grid_use_solar_plus_battery/$sum_solar_plus_battery) * 100, 2));
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'self use';
+        echo '<br/>';
+        echo '<br/>';
+        echo $self_use_solar_only_percentage = round(number_format(($self_use_solar_only/$sum_solar_only) * 100, 2));
+        echo '<br/>';
+        echo $self_use_solar_plus_battery_percentage = round(number_format(($self_use_solar_plus_battery/$sum_solar_plus_battery) * 100, 2));
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Net metered + Export';
+        echo '<br/>';
+        echo '<br/>';
+        echo $net_metered_plus_export_solar_only_percentage = round(number_format(($net_metered_plus_export_solar_only/$sum_solar_only) * 100, 2));
+        echo '<br/>';
+        echo $net_metered_plus_export_solar_plus_battery_percentage = round(number_format(($net_metered_plus_export_solar_plus_battery/$sum_solar_plus_battery) * 100, 2));
+        
+        echo '<br/>';
+        echo '<br/>';
+        echo $webpage_savings_one = $electricity_charges_without_solar_one + $annual_credit_plus_or_payment_minus_one;
+        echo '<br/>';
+        echo $webpage_savings_five = $electricity_charges_without_solar_five + $annual_credit_plus_or_payment_minus_five;
+        echo '<br/>';
+        echo $webpage_savings_ten = $electricity_charges_without_solar_ten + $annual_credit_plus_or_payment_minus_ten;
+        echo '<br/>';
+        echo $webpage_savings_fifteen = $electricity_charges_without_solar_fifteen + $annual_credit_plus_or_payment_minus_fifteen;
+        echo '<br/>';
+        echo $webpage_savings_twenty = $electricity_charges_without_solar_twenty + $annual_credit_plus_or_payment_minus_twenty;
+        echo '<br/>';
+        echo $webpage_savings_twenty_five = $electricity_charges_without_solar_twenty_five + $annual_credit_plus_or_payment_minus_twenty_five;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'Output to Webpage Solar Only';
+        echo '<br/>';
+        echo '<br/>';
+        echo $saving_solar_only_one = round(number_format(($webpage_savings_one/$electricity_charges_without_solar_one)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_only_five = round(number_format(($webpage_savings_five/$electricity_charges_without_solar_five)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_only_ten = round(number_format(($webpage_savings_ten/$electricity_charges_without_solar_ten)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_only_fifteen = round(number_format(($webpage_savings_fifteen/$electricity_charges_without_solar_fifteen)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_only_twenty = round(number_format(($webpage_savings_twenty/$electricity_charges_without_solar_twenty)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_only_twenty_five = round(number_format(($webpage_savings_twenty_five/$electricity_charges_without_solar_twenty_five)*100, 2));
+        echo '<br/>';
+
+
+        echo $webpage_solar_plus_battery_savings_one = $electricity_charges_without_solar_one + $solar_battery_annual_credit_plus_or_payment_minus_one;
+        echo '<br/>';
+        echo $webpage_solar_plus_battery_savings_five = $electricity_charges_without_solar_five + $solar_battery_annual_credit_plus_or_payment_minus_five;
+        echo '<br/>';
+        echo $webpage_solar_plus_battery_savings_ten = $electricity_charges_without_solar_ten + $solar_battery_annual_credit_plus_or_payment_minus_ten;
+        echo '<br/>';
+        echo $webpage_solar_plus_battery_savings_fifteen = $electricity_charges_without_solar_fifteen + $solar_battery_annual_credit_plus_or_payment_minus_fifteen;
+        echo '<br/>';
+        echo $webpage_solar_plus_battery_savings_twenty = $electricity_charges_without_solar_twenty + $solar_battery_annual_credit_plus_or_payment_minus_twenty;
+        echo '<br/>';
+        echo $webpage_solar_plus_battery_savings_twenty_five = $electricity_charges_without_solar_twenty_five + $solar_battery_annual_credit_plus_or_payment_minus_twenty_five;
+        echo '<br/>';
+
+        echo '<br/>';
+        echo 'Output to Webpage Solar Only';
+        echo '<br/>';
+        echo '<br/>';
+        echo $saving_solar_plus_battery_one = round(number_format(($webpage_solar_plus_battery_savings_one/$electricity_charges_without_solar_one)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_plus_battery_five = round(number_format(($webpage_solar_plus_battery_savings_five/$electricity_charges_without_solar_five)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_plus_battery_ten = round(number_format(($webpage_solar_plus_battery_savings_ten/$electricity_charges_without_solar_ten)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_plus_battery_fifteen = round(number_format(($webpage_solar_plus_battery_savings_fifteen/$electricity_charges_without_solar_fifteen)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_plus_battery_twenty = round(number_format(($webpage_solar_plus_battery_savings_twenty/$electricity_charges_without_solar_twenty)*100, 2));
+        echo '<br/>';
+        echo $saving_solar_plus_battery_twenty_five = round(number_format(($webpage_solar_plus_battery_savings_twenty_five/$electricity_charges_without_solar_twenty_five)*100, 2));
+        echo '<br/>';
+
+        echo 'Daytime Use Chart';
+        echo '<br/>';
+        echo $daytime_use_chart_jan = ceil($off_peack_rate_with_gst * $daytime_use_jan);
+        echo '<br/>';
+        echo $daytime_use_chart_feb = ceil($off_peack_rate_with_gst * $daytime_use_feb);
+        echo '<br/>';
+        echo $daytime_use_chart_mar = ceil($off_peack_rate_with_gst * $daytime_use_mar);
+        echo '<br/>';
+        echo $daytime_use_chart_apr = ceil($off_peack_rate_with_gst * $daytime_use_apr);
+        echo '<br/>';
+        echo $daytime_use_chart_may = ceil($off_peack_rate_with_gst * $daytime_use_may);
+        echo '<br/>';
+        echo $daytime_use_chart_jun = ceil($off_peack_rate_with_gst * $daytime_use_jun);
+        echo '<br/>';
+        echo $daytime_use_chart_jul = ceil($off_peack_rate_with_gst * $daytime_use_jul);
+        echo '<br/>';
+        echo $daytime_use_chart_aug = ceil($off_peack_rate_with_gst * $daytime_use_aug);
+        echo '<br/>';
+        echo $daytime_use_chart_sep = ceil($off_peack_rate_with_gst * $daytime_use_sep);
+        echo '<br/>';
+        echo $daytime_use_chart_oct = ceil($off_peack_rate_with_gst * $daytime_use_oct);
+        echo '<br/>';
+        echo $daytime_use_chart_nov = ceil($off_peack_rate_with_gst * $daytime_use_nov);
+        echo '<br/>';
+        echo $daytime_use_chart_dec = ceil($off_peack_rate_with_gst * $daytime_use_dec);
+        echo '<br/>';
+        echo '<br/>';
+
+        echo 'Nighttime Use Chart';
+        echo '<br/>';
+        echo $nighttime_use_chart_jan = ceil($off_peack_rate_with_gst * $nighttime_use_jan);
+        echo '<br/>';
+        echo $nighttime_use_chart_feb = ceil($off_peack_rate_with_gst * $nighttime_use_feb);
+        echo '<br/>';
+        echo $nighttime_use_chart_mar = ceil($off_peack_rate_with_gst * $nighttime_use_mar);
+        echo '<br/>';
+        echo $nighttime_use_chart_apr = ceil($off_peack_rate_with_gst * $nighttime_use_apr);
+        echo '<br/>';
+        echo $nighttime_use_chart_may = ceil($off_peack_rate_with_gst * $nighttime_use_may);
+        echo '<br/>';
+        echo $nighttime_use_chart_jun = ceil($off_peack_rate_with_gst * $nighttime_use_jun);
+        echo '<br/>';
+        echo $nighttime_use_chart_jul = ceil($off_peack_rate_with_gst * $nighttime_use_jul);
+        echo '<br/>';
+        echo $nighttime_use_chart_aug = ceil($off_peack_rate_with_gst * $nighttime_use_aug);
+        echo '<br/>';
+        echo $nighttime_use_chart_sep = ceil($off_peack_rate_with_gst * $nighttime_use_sep);
+        echo '<br/>';
+        echo $nighttime_use_chart_oct = ceil($off_peack_rate_with_gst * $nighttime_use_oct);
+        echo '<br/>';
+        echo $nighttime_use_chart_nov = ceil($off_peack_rate_with_gst * $nighttime_use_nov);
+        echo '<br/>';
+        echo $nighttime_use_chart_dec = ceil($off_peack_rate_with_gst * $nighttime_use_dec);
+        echo '<br/>';
+
+        echo 'On-Peak Use Chart';
+        echo '<br/>';
+        echo $on_peak_use_chart_jan = ceil($on_peack_rate_with_gst * $on_peak_use_jan);
+        echo '<br/>';
+        echo $on_peak_use_chart_feb = ceil($on_peack_rate_with_gst * $on_peak_use_feb);
+        echo '<br/>';
+        echo $on_peak_use_chart_mar = ceil($on_peack_rate_with_gst * $on_peak_use_mar);
+        echo '<br/>';
+        echo $on_peak_use_chart_apr = ceil($on_peack_rate_with_gst * $on_peak_use_apr);
+        echo '<br/>';
+        echo $on_peak_use_chart_may = ceil($on_peack_rate_with_gst * $on_peak_use_may);
+        echo '<br/>';
+        echo $on_peak_use_chart_jun = ceil($on_peack_rate_with_gst * $on_peak_use_jun);
+        echo '<br/>';
+        echo $on_peak_use_chart_jul = ceil($on_peack_rate_with_gst * $on_peak_use_jul);
+        echo '<br/>';
+        echo $on_peak_use_chart_aug = ceil($on_peack_rate_with_gst * $on_peak_use_aug);
+        echo '<br/>';
+        echo $on_peak_use_chart_sep = ceil($on_peack_rate_with_gst * $on_peak_use_sep);
+        echo '<br/>';
+        echo $on_peak_use_chart_oct = ceil($on_peack_rate_with_gst * $on_peak_use_oct);
+        echo '<br/>';
+        echo $on_peak_use_chart_nov = ceil($on_peack_rate_with_gst * $on_peak_use_nov);
+        echo '<br/>';
+        echo $on_peak_use_chart_dec = ceil($on_peack_rate_with_gst * $on_peak_use_dec);
+        echo '<br/>';
+
+
+        echo '100% Grid (No Solar)';
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_jan = $daytime_use_chart_jan + ($nighttime_use_chart_jan + $on_peak_use_chart_jan);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_feb = $daytime_use_chart_feb + ($nighttime_use_chart_feb + $on_peak_use_chart_feb);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_mar = $daytime_use_chart_mar + ($nighttime_use_chart_mar + $on_peak_use_chart_mar);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_apr = $daytime_use_chart_apr + ($nighttime_use_chart_apr + $on_peak_use_chart_apr);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_may = $daytime_use_chart_may + ($nighttime_use_chart_may + $on_peak_use_chart_may);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_jun = $daytime_use_chart_jun + ($nighttime_use_chart_jun + $on_peak_use_chart_jun);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_jul = $daytime_use_chart_jul + ($nighttime_use_chart_jul + $on_peak_use_chart_jul);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_aug = $daytime_use_chart_aug + ($nighttime_use_chart_aug + $on_peak_use_chart_aug);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_sep = $daytime_use_chart_sep + ($nighttime_use_chart_sep + $on_peak_use_chart_sep);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_oct = $daytime_use_chart_oct + ($nighttime_use_chart_oct + $on_peak_use_chart_oct);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_nov = $daytime_use_chart_nov + ($nighttime_use_chart_nov + $on_peak_use_chart_nov);
+        echo '<br/>';
+        echo $net_monthly_charges_no_solar_dec = $daytime_use_chart_dec + ($nighttime_use_chart_dec + $on_peak_use_chart_dec);
+        echo '<br/>';
+
+
+        $net_monthly_charges_jan = $daytime_use_chart_jan + ($nighttime_use_chart_jan + $on_peak_use_chart_jan);
+        $net_monthly_charges_feb = $daytime_use_chart_feb + ($nighttime_use_chart_feb + $on_peak_use_chart_feb);
+        $net_monthly_charges_mar = $daytime_use_chart_mar + ($nighttime_use_chart_mar + $on_peak_use_chart_mar);
+        $net_monthly_charges_apr = $daytime_use_chart_apr + ($nighttime_use_chart_apr + $on_peak_use_chart_apr);
+        $net_monthly_charges_may = $daytime_use_chart_may + ($nighttime_use_chart_may + $on_peak_use_chart_may);
+        $net_monthly_charges_jun = $daytime_use_chart_jun + ($nighttime_use_chart_jun + $on_peak_use_chart_jun);
+        $net_monthly_charges_jul = $daytime_use_chart_jul + ($nighttime_use_chart_jul + $on_peak_use_chart_jul);
+        $net_monthly_charges_aug = $daytime_use_chart_aug + ($nighttime_use_chart_aug + $on_peak_use_chart_aug);
+        $net_monthly_charges_sep = $daytime_use_chart_sep + ($nighttime_use_chart_sep + $on_peak_use_chart_sep);
+        $net_monthly_charges_oct = $daytime_use_chart_oct + ($nighttime_use_chart_oct + $on_peak_use_chart_oct);
+        $net_monthly_charges_nov = $daytime_use_chart_nov + ($nighttime_use_chart_nov + $on_peak_use_chart_nov);
+        $net_monthly_charges_dec = $daytime_use_chart_dec + ($nighttime_use_chart_dec + $on_peak_use_chart_dec);
+
+
+
+
+
+        
+        echo 'off Peak Imports';
+        echo '<br/>';
+        echo $off_peak_imports_chart_jan = ceil($off_peack_rate_with_gst * $off_peak_imports_jan);
+        echo '<br/>';
+        echo $off_peak_imports_chart_feb = ceil($off_peack_rate_with_gst * $off_peak_imports_feb);
+        echo '<br/>';
+        echo $off_peak_imports_chart_mar = ceil($off_peack_rate_with_gst * $off_peak_imports_mar);
+        echo '<br/>';
+        echo $off_peak_imports_chart_apr = ceil($off_peack_rate_with_gst * $off_peak_imports_apr);
+        echo '<br/>';
+        echo $off_peak_imports_chart_may = ceil($off_peack_rate_with_gst * $off_peak_imports_may);
+        echo '<br/>';
+        echo $off_peak_imports_chart_jun = ceil($off_peack_rate_with_gst * $off_peak_imports_jun);
+        echo '<br/>';
+        echo $off_peak_imports_chart_jul = ceil($off_peack_rate_with_gst * $off_peak_imports_jul);
+        echo '<br/>';
+        echo $off_peak_imports_chart_aug = ceil($off_peack_rate_with_gst * $off_peak_imports_aug);
+        echo '<br/>';
+        echo $off_peak_imports_chart_sep = ceil($off_peack_rate_with_gst * $off_peak_imports_sep);
+        echo '<br/>';
+        echo $off_peak_imports_chart_oct = ceil($off_peack_rate_with_gst * $off_peak_imports_oct);
+        echo '<br/>';
+        echo $off_peak_imports_chart_nov = ceil($off_peack_rate_with_gst * $off_peak_imports_nov);
+        echo '<br/>';
+        echo $off_peak_imports_chart_dec = ceil($off_peack_rate_with_gst * $off_peak_imports_dec);
+        echo '<br/>';
+
+
+        echo 'Net metered Off-Peak';
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_jan = max(0,ceil($off_peack_rate * $net_metered_off_peak_jan));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_feb = max(0,ceil($off_peack_rate * $net_metered_off_peak_feb));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_mar = max(0,ceil($off_peack_rate * $net_metered_off_peak_mar));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_apr = max(0,ceil($off_peack_rate * $net_metered_off_peak_apr));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_may = max(0,ceil($off_peack_rate * $net_metered_off_peak_may));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_jun = max(0,ceil($off_peack_rate * $net_metered_off_peak_jun));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_jul = max(0,ceil($off_peack_rate * $net_metered_off_peak_jul));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_aug = max(0,ceil($off_peack_rate * $net_metered_off_peak_aug));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_sep = max(0,ceil($off_peack_rate * $net_metered_off_peak_sep));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_oct = max(0,ceil($off_peack_rate * $net_metered_off_peak_oct));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_nov = max(0,ceil($off_peack_rate * $net_metered_off_peak_nov));
+        echo '<br/>';
+        echo $net_metered_off_peak_chart_dec = max(0,ceil($off_peack_rate * $net_metered_off_peak_dec));
+        echo '<br/>';
+
+        echo 'Excess Export';
+        echo '<br/>';
+        echo $excess_export_chart_jan = max(0,ceil($export_rate * $excess_export_jan));
+        echo '<br/>';
+        echo $excess_export_chart_feb = max(0,ceil($export_rate * $excess_export_feb));
+        echo '<br/>';
+        echo $excess_export_chart_mar = max(0,ceil($export_rate * $excess_export_mar));
+        echo '<br/>';
+        echo $excess_export_chart_apr = max(0,ceil($export_rate * $excess_export_apr));
+        echo '<br/>';
+        echo $excess_export_chart_may = max(0,ceil($export_rate * $excess_export_may));
+        echo '<br/>';
+        echo $excess_export_chart_jun = max(0,ceil($export_rate * $excess_export_jun));
+        echo '<br/>';
+        echo $excess_export_chart_jul = max(0,ceil($export_rate * $excess_export_jul));
+        echo '<br/>';
+        echo $excess_export_chart_aug = max(0,ceil($export_rate * $excess_export_aug));
+        echo '<br/>';
+        echo $excess_export_chart_sep = max(0,ceil($export_rate * $excess_export_sep));
+        echo '<br/>';
+        echo $excess_export_chart_oct = max(0,ceil($export_rate * $excess_export_oct));
+        echo '<br/>';
+        echo $excess_export_chart_nov = max(0,ceil($export_rate * $excess_export_nov));
+        echo '<br/>';
+        echo $excess_export_chart_dec = max(0,ceil($export_rate * $excess_export_dec));
+        echo '<br/>';
+
+
+        echo 'On-Peak Import';
+        echo '<br/>';
+        echo $on_peak_import_chart_jan = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_jan));
+        echo '<br/>';
+        echo $on_peak_import_chart_feb = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_feb));
+        echo '<br/>';
+        echo $on_peak_import_chart_mar = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_mar));
+        echo '<br/>';
+        echo $on_peak_import_chart_apr = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_apr));
+        echo '<br/>';
+        echo $on_peak_import_chart_may = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_may));
+        echo '<br/>';
+        echo $on_peak_import_chart_jun = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_jun));
+        echo '<br/>';
+        echo $on_peak_import_chart_jul = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_jul));
+        echo '<br/>';
+        echo $on_peak_import_chart_aug = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_aug));
+        echo '<br/>';
+        echo $on_peak_import_chart_sep = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_sep));
+        echo '<br/>';
+        echo $on_peak_import_chart_oct = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_oct));
+        echo '<br/>';
+        echo $on_peak_import_chart_nov = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_nov));
+        echo '<br/>';
+        echo $on_peak_import_chart_dec = max(0,ceil($on_peack_rate_with_gst * $on_peak_import_dec));
+        echo '<br/>';
+
+
+        echo 'Net Monthly Charges Solar Only';
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_jan =  $off_peak_imports_chart_jan + $on_peak_import_chart_jan;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_feb =  $off_peak_imports_chart_feb + $on_peak_import_chart_feb;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_mar =  $off_peak_imports_chart_mar + $on_peak_import_chart_mar;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_apr =  $off_peak_imports_chart_apr + $on_peak_import_chart_apr;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_may =  $off_peak_imports_chart_may + $on_peak_import_chart_may;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_jun =  $off_peak_imports_chart_jun + $on_peak_import_chart_jun;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_jul =  $off_peak_imports_chart_jul + $on_peak_import_chart_jul;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_aug =  $off_peak_imports_chart_aug + $on_peak_import_chart_aug;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_sep =  $off_peak_imports_chart_sep + $on_peak_import_chart_sep;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_oct =  $off_peak_imports_chart_oct + $on_peak_import_chart_oct;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_nov =  $off_peak_imports_chart_nov + $on_peak_import_chart_nov;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_only_chart_dec =  $off_peak_imports_chart_dec + $on_peak_import_chart_dec;
+        echo '<br/>';
+
+        echo 'Net Monthly Credits Solar Only';
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_jan =  $net_metered_off_peak_chart_jan + $excess_export_chart_jan;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_feb =  $net_metered_off_peak_chart_feb + $excess_export_chart_feb;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_mar =  $net_metered_off_peak_chart_mar + $excess_export_chart_mar;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_apr =  $net_metered_off_peak_chart_apr + $excess_export_chart_apr;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_may =  $net_metered_off_peak_chart_may + $excess_export_chart_may;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_jun =  $net_metered_off_peak_chart_jun + $excess_export_chart_jun;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_jul =  $net_metered_off_peak_chart_jul + $excess_export_chart_jul;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_aug =  $net_metered_off_peak_chart_aug + $excess_export_chart_aug;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_sep =  $net_metered_off_peak_chart_sep + $excess_export_chart_sep;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_oct =  $net_metered_off_peak_chart_oct + $excess_export_chart_oct;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_nov =  $net_metered_off_peak_chart_nov + $excess_export_chart_nov;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_only_chart_dec =  $net_metered_off_peak_chart_dec + $excess_export_chart_dec;
+        echo '<br/>';
+
+
+        echo 'Net Monthly Net Savings Solar Only';
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_jan =  ($net_metered_off_peak_chart_jan + $excess_export_chart_jan) + $net_monthly_charges_no_solar_jan;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_feb =  ($net_metered_off_peak_chart_feb + $excess_export_chart_feb) + $net_monthly_charges_no_solar_feb;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_mar =  ($net_metered_off_peak_chart_mar + $excess_export_chart_mar) + $net_monthly_charges_no_solar_mar;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_apr =  ($net_metered_off_peak_chart_apr + $excess_export_chart_apr) + $net_monthly_charges_no_solar_apr;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_may =  ($net_metered_off_peak_chart_may + $excess_export_chart_may) + $net_monthly_charges_no_solar_may;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_jun =  ($net_metered_off_peak_chart_jun + $excess_export_chart_jun) + $net_monthly_charges_no_solar_jun;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_jul =  ($net_metered_off_peak_chart_jul + $excess_export_chart_jul) + $net_monthly_charges_no_solar_jul;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_aug =  ($net_metered_off_peak_chart_aug + $excess_export_chart_aug) + $net_monthly_charges_no_solar_aug;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_sep =  ($net_metered_off_peak_chart_sep + $excess_export_chart_sep) + $net_monthly_charges_no_solar_sep;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_oct =  ($net_metered_off_peak_chart_oct + $excess_export_chart_oct) + $net_monthly_charges_no_solar_oct;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_nov =  ($net_metered_off_peak_chart_nov + $excess_export_chart_nov) + $net_monthly_charges_no_solar_nov;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_only_chart_dec =  ($net_metered_off_peak_chart_dec + $excess_export_chart_dec) + $net_monthly_charges_no_solar_dec;
+        echo '<br/>';
+
+        echo 'Net Monthly Charges Solar Only';
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_jan = $net_monthly_charge_solar_only_chart_jan - $net_monthly_credit_solar_only_chart_jan;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_feb = $net_monthly_charge_solar_only_chart_feb - $net_monthly_credit_solar_only_chart_feb;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_mar = $net_monthly_charge_solar_only_chart_mar - $net_monthly_credit_solar_only_chart_mar;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_apr = $net_monthly_charge_solar_only_chart_apr - $net_monthly_credit_solar_only_chart_apr;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_may = $net_monthly_charge_solar_only_chart_may - $net_monthly_credit_solar_only_chart_may;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_jun = $net_monthly_charge_solar_only_chart_jun - $net_monthly_credit_solar_only_chart_jun;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_jul = $net_monthly_charge_solar_only_chart_jul - $net_monthly_credit_solar_only_chart_jul;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_aug = $net_monthly_charge_solar_only_chart_aug - $net_monthly_credit_solar_only_chart_aug;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_sep = $net_monthly_charge_solar_only_chart_sep - $net_monthly_credit_solar_only_chart_sep;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_oct = $net_monthly_charge_solar_only_chart_oct - $net_monthly_credit_solar_only_chart_oct;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_nov = $net_monthly_charge_solar_only_chart_nov - $net_monthly_credit_solar_only_chart_nov;
+        echo '<br/>';
+        echo $net_monthly_charges_solar_only_dec = $net_monthly_charge_solar_only_chart_dec - $net_monthly_credit_solar_only_chart_dec;
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Off-Peak Nighttime Import';
+        echo '<br/>';
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_jan = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_jan));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_feb = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_feb));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_mar = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_mar));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_apr = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_apr));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_may = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_may));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_jun = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_jun));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_jul = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_jul));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_aug = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_aug));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_sep = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_sep));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_oct = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_oct));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_nov = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_nov));
+        echo '<br/>';
+        echo $solar_battery_off_peak_nighttime_import_chart_dec = max(0,ceil($off_peack_rate_with_gst * $solar_battery_off_peak_nighttime_import_dec));
+        echo '<br/>';
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Net metered Off-Peak';
+        echo '<br/>';
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_jan = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_jan));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_feb = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_feb));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_mar = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_mar));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_apr = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_apr));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_may = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_may));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_jun = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_jun));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_jul = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_jul));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_aug = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_aug));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_sep = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_sep));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_oct = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_oct));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_nov = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_nov));
+        echo '<br/>';
+        echo $solar_battery_net_metered_off_peak_chart_dec = max(0,ceil($off_peack_rate * $solar_battery_net_metered_off_peak_dec));
+        echo '<br/>';
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'Excess Export';
+        echo '<br/>';
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_jan = max(0,ceil($export_rate * $solar_battery_excess_export_jan));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_feb = max(0,ceil($export_rate * $solar_battery_excess_export_feb));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_mar = max(0,ceil($export_rate * $solar_battery_excess_export_mar));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_apr = max(0,ceil($export_rate * $solar_battery_excess_export_apr));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_may = max(0,ceil($export_rate * $solar_battery_excess_export_may));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_jun = max(0,ceil($export_rate * $solar_battery_excess_export_jun));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_jul = max(0,ceil($export_rate * $solar_battery_excess_export_jul));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_aug = max(0,ceil($export_rate * $solar_battery_excess_export_aug));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_sep = max(0,ceil($export_rate * $solar_battery_excess_export_sep));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_oct = max(0,ceil($export_rate * $solar_battery_excess_export_oct));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_nov = max(0,ceil($export_rate * $solar_battery_excess_export_nov));
+        echo '<br/>';
+        echo $solar_battery_excess_export_chart_dec = max(0,ceil($export_rate * $solar_battery_excess_export_dec));
+        echo '<br/>';
+
+
+        echo '<br/>';
+        echo '<br/>';
+        echo 'On-Peak Import';
+        echo '<br/>';
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_jan = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_jan));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_feb = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_feb));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_mar = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_mar));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_apr = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_apr));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_may = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_may));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_jun = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_jun));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_jul = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_jul));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_aug = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_aug));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_sep = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_sep));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_oct = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_oct));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_nov = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_nov));
+        echo '<br/>';
+        echo $solar_battery_on_peak_import_chart_dec = max(0,ceil($on_peack_rate_with_gst * $solar_battery_on_peak_import_dec));
+        echo '<br/>';
+
+
+        echo 'Net Monthly Charges Solar+Battery';
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_jan =  $solar_battery_off_peak_nighttime_import_chart_jan + $solar_battery_on_peak_import_chart_jan;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_feb =  $solar_battery_off_peak_nighttime_import_chart_feb + $solar_battery_on_peak_import_chart_feb;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_mar =  $solar_battery_off_peak_nighttime_import_chart_mar + $solar_battery_on_peak_import_chart_mar;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_apr =  $solar_battery_off_peak_nighttime_import_chart_apr + $solar_battery_on_peak_import_chart_apr;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_may =  $solar_battery_off_peak_nighttime_import_chart_may + $solar_battery_on_peak_import_chart_may;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_jun =  $solar_battery_off_peak_nighttime_import_chart_jun + $solar_battery_on_peak_import_chart_jun;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_jul =  $solar_battery_off_peak_nighttime_import_chart_jul + $solar_battery_on_peak_import_chart_jul;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_aug =  $solar_battery_off_peak_nighttime_import_chart_aug + $solar_battery_on_peak_import_chart_aug;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_sep =  $solar_battery_off_peak_nighttime_import_chart_sep + $solar_battery_on_peak_import_chart_sep;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_oct =  $solar_battery_off_peak_nighttime_import_chart_oct + $solar_battery_on_peak_import_chart_oct;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_nov =  $solar_battery_off_peak_nighttime_import_chart_nov + $solar_battery_on_peak_import_chart_nov;
+        echo '<br/>';
+        echo $net_monthly_charge_solar_plus_battery_chart_dec =  $solar_battery_off_peak_nighttime_import_chart_dec + $solar_battery_on_peak_import_chart_dec;
+        echo '<br/>';
+
+
+        echo 'Net Monthly Credits Solar+Battery';
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_jan =  $solar_battery_net_metered_off_peak_chart_jan + $solar_battery_excess_export_chart_jan;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_feb =  $solar_battery_net_metered_off_peak_chart_feb + $solar_battery_excess_export_chart_feb;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_mar =  $solar_battery_net_metered_off_peak_chart_mar + $solar_battery_excess_export_chart_mar;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_apr =  $solar_battery_net_metered_off_peak_chart_apr + $solar_battery_excess_export_chart_apr;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_may =  $solar_battery_net_metered_off_peak_chart_may + $solar_battery_excess_export_chart_may;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_jun =  $solar_battery_net_metered_off_peak_chart_jun + $solar_battery_excess_export_chart_jun;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_jul =  $solar_battery_net_metered_off_peak_chart_jul + $solar_battery_excess_export_chart_jul;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_aug =  $solar_battery_net_metered_off_peak_chart_aug + $solar_battery_excess_export_chart_aug;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_sep =  $solar_battery_net_metered_off_peak_chart_sep + $solar_battery_excess_export_chart_sep;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_oct =  $solar_battery_net_metered_off_peak_chart_oct + $solar_battery_excess_export_chart_oct;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_nov =  $solar_battery_net_metered_off_peak_chart_nov + $solar_battery_excess_export_chart_nov;
+        echo '<br/>';
+        echo $net_monthly_credit_solar_plus_battery_chart_dec =  $solar_battery_net_metered_off_peak_chart_dec + $solar_battery_excess_export_chart_dec;
+        echo '<br/>';
+
+
+        echo 'Net Monthly Net Savings Solar+Battery';
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_jan = ($net_monthly_charges_no_solar_jan - $net_monthly_charge_solar_plus_battery_chart_jan) + $net_monthly_credit_solar_plus_battery_chart_jan;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_feb = ($net_monthly_charges_no_solar_feb - $net_monthly_charge_solar_plus_battery_chart_feb) + $net_monthly_credit_solar_plus_battery_chart_feb;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_mar = ($net_monthly_charges_no_solar_mar - $net_monthly_charge_solar_plus_battery_chart_mar) + $net_monthly_credit_solar_plus_battery_chart_mar;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_apr = ($net_monthly_charges_no_solar_apr - $net_monthly_charge_solar_plus_battery_chart_apr) + $net_monthly_credit_solar_plus_battery_chart_apr;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_may = ($net_monthly_charges_no_solar_may - $net_monthly_charge_solar_plus_battery_chart_may) + $net_monthly_credit_solar_plus_battery_chart_may;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_jun = ($net_monthly_charges_no_solar_jun - $net_monthly_charge_solar_plus_battery_chart_jun) + $net_monthly_credit_solar_plus_battery_chart_jun;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_jul = ($net_monthly_charges_no_solar_jul - $net_monthly_charge_solar_plus_battery_chart_jul) + $net_monthly_credit_solar_plus_battery_chart_jul;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_aug = ($net_monthly_charges_no_solar_aug - $net_monthly_charge_solar_plus_battery_chart_aug) + $net_monthly_credit_solar_plus_battery_chart_aug;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_sep = ($net_monthly_charges_no_solar_sep - $net_monthly_charge_solar_plus_battery_chart_sep) + $net_monthly_credit_solar_plus_battery_chart_sep;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_oct = ($net_monthly_charges_no_solar_oct - $net_monthly_charge_solar_plus_battery_chart_oct) + $net_monthly_credit_solar_plus_battery_chart_oct;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_nov = ($net_monthly_charges_no_solar_nov - $net_monthly_charge_solar_plus_battery_chart_nov) + $net_monthly_credit_solar_plus_battery_chart_nov;
+        echo '<br/>';
+        echo $net_monthly_saving_solar_battery_chart_dec = ($net_monthly_charges_no_solar_dec - $net_monthly_charge_solar_plus_battery_chart_dec) + $net_monthly_credit_solar_plus_battery_chart_dec;
+        echo '<br/>';
+
+
+        
+
+
+
+
+
 
 
 
@@ -1726,7 +3713,7 @@ class GeneralSettingController extends Controller
         echo '<p style="width: 400px;float: left;margin: 0;">Off-Peak Imports</p>'. round($off_peak_imports_1st_year_usage).' - ' . round($off_peak_imports_1st_year_charges).'<br/>';
         echo '<p style="width: 400px;float: left;margin: 0;">Net metered Off-Peak</p>'. round($net_metered_off_peak_1st_year_usage).' - ' . round($net_metered_off_peak_1st_year_charges).'<br/>';
         echo '<p style="width: 400px;float: left;margin: 0;">Excess Export</p>'. round($excess_export_1st_year_usage).' - ' . round($excess_export_1st_year_charges).'<br/>';
-        echo '<p style="width: 400px;float: left;margin: 0;">Off -Peak Import</p>'. round($off_peak_import_after_netting_off_1st_year_usage).' - ' . round($off_peak_import_after_netting_off_1st_year_charges).'<br/>';
+        echo '<p style="width: 400px;float: left;margin: 0;">Off-Peak Import after netting off</p>'. round($off_peak_import_after_netting_off_1st_year_usage).' - ' . round($off_peak_import_after_netting_off_1st_year_charges).'<br/>';
         
         echo '<p style="width: 400px;float: left;margin: 0;">On-Peak Import</p>'. round($on_peak_import_1st_year_usage).' - ' . round($on_peak_imports_1st_year_charges).'<br/>';
         echo '<p style="width: 400px;float: left;margin: 0;">Credits from (+)/Payment to (-) Utlity</p> '. '------ ' . round($credits_from_payment_utlity).'<br/>';
@@ -1821,6 +3808,25 @@ class GeneralSettingController extends Controller
 
 
         echo '<p style="width: 400px;float: left;margin: 0;">Net meter benefits (PKR)</p> '.' --- '. ceil($solar_battery_net_metered_benefits_one).' --- '. ceil($solar_battery_net_metered_benefits_two).' --- '. ceil($solar_battery_net_metered_benefits_three).' --- '. ceil($solar_battery_net_metered_benefits_four).' --- '. ceil($solar_battery_net_metered_benefits_five).' --- '. ceil($solar_battery_net_metered_benefits_six).' --- '. ceil($solar_battery_net_metered_benefits_seven).' --- '. ceil($solar_battery_net_metered_benefits_eight).' --- '. ceil($solar_battery_net_metered_benefits_nine).' --- '. ceil($solar_battery_net_metered_benefits_ten).'<br/>';
+
+        echo '<p style="width: 400px;float: left;margin: 0;">Off-Peak Imports + Tax(PKR)</p> '.' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_one).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_two).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_three).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_four).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_five).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_six).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_seven).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_eight).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_nine).' --- '. ceil($solar_battery_off_peak_imports_plus_tax_PKR_ten).'<br/>';
+
+        echo '<p style="width: 400px;float: left;margin: 0;">On-Peak Imports + Tax (PKR)</p> '.' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_one).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_two).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_three).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_four).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_five).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_six).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_seven).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_eight).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_nine).' --- '. ceil($solar_battery_on_peak_imports_plus_tax_PKR_ten).'<br/>';
+
+        echo '<p style="width: 400px;float: left;margin: 0;">Annual Credit (+) or Payment (-)</p> '. ceil($solar_battery_annual_credit_plus_or_payment_minus_one).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_two).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_three).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_four).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_five).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_six).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_seven).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_eight).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_nine).' --- '. ceil($solar_battery_annual_credit_plus_or_payment_minus_ten).'<br/>';
+
+        echo '<p style="width: 400px;float: left;margin: 0;">Zero Energy Charge</p> '. ceil($solar_battery_zero_energy_charge_one).' --- '. ceil($solar_battery_zero_energy_charge_two).' --- '. ceil($solar_battery_zero_energy_charge_three).' --- '. ceil($solar_battery_zero_energy_charge_four).' --- '. ceil($solar_battery_zero_energy_charge_five).' --- '. ceil($solar_battery_zero_energy_charge_six).' --- '. ceil($solar_battery_zero_energy_charge_seven).' --- '. ceil($solar_battery_zero_energy_charge_eight).' --- '. ceil($solar_battery_zero_energy_charge_nine).' --- '. ceil($solar_battery_zero_energy_charge_ten).'<br/>';
+
+        echo '<p style="width: 400px;float: left;margin: 0;">Total Savings in Electricity Charges</p> '. ceil($solar_battery_total_savings_in_electricity_charges_usage). ' --- ' . ceil($solar_battery_total_savings_in_electricity_charges_one).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_two).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_three).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_four).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_five).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_six).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_seven).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_eight).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_nine).' --- '. ceil($solar_battery_total_savings_in_electricity_charges_ten).'<br/>';
+
+
+        echo '<p style="width: 400px;float: left;margin: 0;">Initial Investment/Cum Savings</p> '. round($solar_battery_initial_investment_cum_savings_usage).' --- '. ceil($solar_battery_initial_investment_cum_savings_one).' --- '. ceil($solar_battery_initial_investment_cum_savings_two).' --- '. ceil($solar_battery_initial_investment_cum_savings_three).' --- '. ceil($solar_battery_initial_investment_cum_savings_four).' --- '. ceil($solar_battery_initial_investment_cum_savings_five).' --- '. ceil($solar_battery_initial_investment_cum_savings_six).' --- '. ceil($solar_battery_initial_investment_cum_savings_seven).' --- '. ceil($solar_battery_initial_investment_cum_savings_eight).' --- '. ceil($solar_battery_initial_investment_cum_savings_nine).' --- '. ceil($solar_battery_initial_investment_cum_savings_ten).'<br/>';
+
+        echo '<p style="width: 400px;float: left;margin: 0;">Cumulative Payback cash flow (PKR)</p> '. round($solar_battery_cumulative_payback_cash_flow_PKR_usage).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_one).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_two).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_three).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_four).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_five).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_six).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_seven).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_eight).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_nine).' --- '. ceil($solar_battery_cumulative_payback_cash_flow_PKR_ten).'<br/>';
+
+
+
+
 
 
         
